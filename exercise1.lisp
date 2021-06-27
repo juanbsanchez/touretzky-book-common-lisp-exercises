@@ -8,7 +8,7 @@
 ;; (add1 3) -> 4
 
 
-;; Define add2 the same way you defined add1.
+;; Define add2 using add1.
 
 (defun add2
     (x)
