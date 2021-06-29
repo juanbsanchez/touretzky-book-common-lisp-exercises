@@ -27,3 +27,12 @@
 (my-third '(reb blue green yellow)) ;; => GREEN
 
 
+
+;; Write a function that takes any two inputs and makes a list of them using cons
+
+(defun my-cons (x y)
+  (cons x (cons y nil)))
+
+(my-cons 'foo 'fee) ;; => (FOO FEE)
+(my-cons '(foo) 'fee) ;; => ((FOO) FEE)
+
