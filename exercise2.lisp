@@ -10,7 +10,7 @@
 
 ;; Show how to write MY-THIRD using FIRST and two RESTs.
 
-(defun my-thid (list)
+(defun my-third (list)
   (first (rest (rest list))))
 
 (my-third '(1 2 3 4 5)) ;; => 3
