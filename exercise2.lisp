@@ -58,10 +58,11 @@
 ;; and the list (MARVIN), DUOCONS would return the list (PATRICK SEYMOUR MARVIN).
 ;; Show how to write the DUO-CONS function
 
-(defun duo-cons (x y list)
-  (cons x (cons y list)))
+(defun duo-cons (x y z)
+  (cons x (cons y z)))
 
 (duo-const 'patrick 'seymour '(marvin)) ;; => (PATRICK SEYMOUR MARVIN)
+
 
 
 
