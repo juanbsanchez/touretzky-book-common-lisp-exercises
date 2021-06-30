@@ -81,4 +81,3 @@
 
 (caaadr '(((good)) ((night)))) ;; => NIGHT
 
-
