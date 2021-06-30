@@ -44,7 +44,7 @@
 
 (defun two-lists (a b c d)
   (cons (list a b)
-        (const (list c d) nil)))
+        (cons (list c d) nil)))
 
 (two-lists 'a 'b 'c 'd) ;; => ((A B) (C D))
 (two-lists 1 2 3 4) ;; => ((1 2) (3 4))
