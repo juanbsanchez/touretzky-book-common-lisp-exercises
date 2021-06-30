@@ -50,6 +50,7 @@
 (two-lists 1 2 3 4) ;; => ((1 2) (3 4))
 
 
+
 ;; Suppose we wanted to make a function called DUO-CONS that added two elements to the front of a list.
 ;; Remember that the regular CONS function adds only one element to a list.
 ;; DUO-CONS would be a function of three inputs.
@@ -57,8 +58,10 @@
 ;; and the list (MARVIN), DUOCONS would return the list (PATRICK SEYMOUR MARVIN).
 ;; Show how to write the DUO-CONS function
 
-(defun duo-cons (x y z)
-  (cons x (cons y z)))
+(defun duo-cons (x y list)
+  (cons x (cons y list)))
 
 (duo-const 'patrick 'seymour '(marvin)) ;; => (PATRICK SEYMOUR MARVIN)
+
+
 
