@@ -38,7 +38,9 @@
 
 
 
-;; Write a function that takes four inputs and returns a two-elements nested list. The first element should be a list of the first two inputs, and the second element a list of the last two inputs.
+;; Write a function that takes four inputs and returns a two-elements nested list.
+;; The first element should be a list of the first two inputs,
+;; and the second element a list of the last two inputs.
 
 (defun two-lists (a b c d)
   (cons (list a b)
