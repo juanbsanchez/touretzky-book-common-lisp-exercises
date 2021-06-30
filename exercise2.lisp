@@ -64,5 +64,19 @@
 (duo-const 'patrick 'seymour '(marvin)) ;; => (PATRICK SEYMOUR MARVIN)
 
 
+;; TWO-DEEPER is a function that surrounds its input with two levels of parentheses.
+;;TWO-DEEPER of MOO is ((MOO)). TWO-DEEPER of (BOW WOW) is (((BOW WOW))).
+;;Show how to write TWODEEPER using LIST. Write another version using CONS.
+
+(defun two-deeper (x)
+  (list (list x)))
+
+(two-deeper 'moo) ;; => ((MOO))
+(two-deeper '(BOW WOW)) ;; => (((BOW WOW)))
+
+
+
+
+
 
 
