@@ -262,5 +262,18 @@
 (defun foo (x) (+ 1 (zerop x))) ;; That functions returns error. Zerop returns t and function + only accept numbers as arguments
 
 
+;; Write each of the following functions in Church's lambda notation;
+
+;; DOUBLE
+(lambda (x) (+ x x))
+
+;; SQUARE
+(lambda (x) (* x x))
+
+;; ONEMOREP
+(lambda (x y) (equal x (+ y 1)))
+
+
+
 
 
