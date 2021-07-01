@@ -272,8 +272,3 @@
 
 ;; ONEMOREP
 (lambda (x y) (equal x (+ y 1)))
-
-
-
-
-
