@@ -89,6 +89,11 @@
         ((> max x) max)
         (t x)))
 
+(defun constrain (x max min)
+  (if (< x min) min
+      (if (> x max) max
+          x)))
+
 (constrain 3 -50 50) ;; => 3
 (constrain 92 -50 50) ;; => 50
 
@@ -103,8 +108,25 @@
         ((equal (caddr list-numbers) 0) 'THIRD)
         (t 'NONE)))
 
+(defun firstzero (x)
+  (cond ((zerop (first x)) 'first)
+        ((zerop (second x)) 'second)
+        ((zerop (third x)) 'third)
+        (t 'none)))
+
 (firstzero '(3 0 4)) ;; => SECOND
 (firstzero '(0 1 2)) ;; => FIRST
 (firstzero '(1 2 0)) ;; => THIRD
 (firstzero '(1 2 3)) ;; => NONE
+
+
+;; Write a function CYCLE that cyclically counts from 1 to 99. CYCLE
+;; called with an input of 1 should return 2, with an input of 2 should
+;; return 3, with an input of 3 should return 4, and so on. With an input of
+;; 99, CYCLE should return 1. That’s the cyclical part. Do not try to
+ ;; solve this with 99 COND clauses!
+
+(defun cycle (n)
+  (cond ((equal n 99) 1)
+        (t (+ n 1))))
 
