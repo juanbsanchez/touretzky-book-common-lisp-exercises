@@ -141,3 +141,13 @@
 (longer-than '(foo foo) '(foo foo foo)) ;; => NIL
 
 
+;; Write a function ADDLENGTH that takes a list as input and returns a new list with the length of the input added onto the front of it.
+;; If the input is (MOO GOO GAI PAN), the output should be (4 MOO GOO GAI PAN). What is the result of (ADDLENGTH (ADDLENGTH '(A B C)))?
+
+(defun addlength (my-list)
+  (cons (length my-list) my-list))
+
+(addlength '(moo goo gai pan)) ;; => (4 MOO GOO GAI PAN)
+
+(addlength (addlength '(' a b c))) ;; => (4 3 A B C)
+
