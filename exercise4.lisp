@@ -76,4 +76,18 @@
 (emphasize3 '(very long day)) ;; => (very very long day)
 
 
+;; 4.10 Write a function CONSTRAIN that takes three inputs called X, MAX and MIN.
+;; If X is less than MIN, it should return MIN;
+;; If X is greater than MAX, it should return MAX.
+;; Otherwise, since X is between MIN and MAX, it should return x.
+;; (CONSTRAIN 3 -50 50) should return 3.
+;; (CONSTRAIN 92 -50 50) should return 50
+;; Write one version using COND and another using nested IFS.
 
+(defun constrain (x max min)
+  (cond ((< min x) min)
+        ((> max x) max)
+        (t x)))
+
+(constrain 3 -50 50) ;; => 3
+(constrain 92 -50 50) ;; => 50
