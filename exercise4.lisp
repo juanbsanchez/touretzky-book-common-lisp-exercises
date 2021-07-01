@@ -52,4 +52,14 @@
 (ordered 4 3) ;; => (3 4)
 
 
+;; 4.6 Write a version of the absolute value function MY-ABS using COND instead of IF.
+
+(defun my-abs (x)
+  (cond (( < x 0) (-x))
+        (t x)))
+
+(my-abs 3) ;; => 3
+(my-abs -3) ;; => 3
+
+
 
