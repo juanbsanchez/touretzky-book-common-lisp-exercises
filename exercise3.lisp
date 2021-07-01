@@ -149,5 +149,5 @@
 
 (addlength '(moo goo gai pan)) ;; => (4 MOO GOO GAI PAN)
 
-(addlength (addlength '(' a b c))) ;; => (4 3 A B C)
+(addlength (addlength '(a b c))) ;; => (4 3 A B C)
 
