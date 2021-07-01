@@ -130,3 +130,14 @@
 ;; CORRECT:
 
 (cons 'patrick (list 'seymour 'marvin)) ;; => (patrick seymour marvin)
+
+
+;; Define a predicate called LONGER-THAN that takes two lists as input and returns T if the firs list is longer than the second.
+
+(defun longer-than (list1 list2)
+    (> (length list1) (length list2)))
+
+(longer-than '(foo foo foo) '(foo foo)) ;; => T
+(longer-than '(foo foo) '(foo foo foo)) ;; => NIL
+
+
