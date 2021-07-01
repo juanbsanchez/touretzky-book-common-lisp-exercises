@@ -231,3 +231,35 @@
 
 (firstp 'foo '(foo bar baz)) ;; => T
 (firstp 'boing '(foo bar baz)) ;; => NIL
+
+
+
+;; Write a function MID-ADD1 that adds 1 to the middle element of a three-element list.
+;; For example, (MID-ADD1 '(TAKE 2 COOKIES)) should return the list (TAKE 3 COOKIES).
+;; Note: You are not allowed to make MID-ADD1 a function of three inputs. It has to take a single input that is a list of three elements.
+
+(defun mid-add1 (my-list)
+  (list (car my-list)
+        (+ (cadr my-list) 1)
+        (caddr my-list)))
+
+(mid-add1 '(take 2 cookies)) ;; => (take 3 cookies)
+
+
+;; Write a function F-TO-C that converts a temperature from Fahrenheit to Celsius. The formula for doing the conversion is:
+;; Celsius temperature = [5 X (Fahrenheit temperature - 32)] / 9.
+;; To go in the opposite direction, the formula is: Fahrenheit temperature = (9/5 x Celsius temperature) + 32.
+
+(defun f-to-c (fah-temperature)
+  (/ (* (- fah-temperature - 32) 5) 9))
+
+(f-to-c 24.0) ;; => 4.444444444444445
+(f-to-c 32.0) ;; => 0.0
+
+
+;; What is wrong with this function? What does (FOO 5) do?
+
+(defun foo (x) (+ 1 (zerop x)))
+
+;; That functions returns error. Zerop returns t and function + only accept numbers as arguments
+
