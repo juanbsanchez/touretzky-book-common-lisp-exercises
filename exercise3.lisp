@@ -171,3 +171,54 @@
 (crank-call 'WANDA 'FRED) ;; => (hello callee this is caller calling)
 
 
+;; Considerer the following function, paying close attention to the quotes:
+
+(defun scrabble (word)
+  (list word 'is 'a 'word))
+
+;; The symbol WORD is used two different ways in this function.
+;; What are they? the first word is a variable and second is a symbol
+
+;; What is the result of:
+(scrabble 'WORD) ;; => (word is a word)
+
+
+;; Here's a real confuser:
+
+(defun stooge (larry moe curly)
+  (list larry (list 'moe curly) curly 'larry))
+
+;; What does the following evalutate to? It will help to write down what value each variable is bound to and, of course, mind the quotes!
+
+(stooge 'moe 'curly 'larry) ;; => (moe (moe larry) larry larry)
+
+
+;; Evaluate each of the following lists. If the list causes an error, tell what the error is. Otherwise, write the result of the evaluation.
+
+(cons 'grapes '(of wrath)) ;; => (grapes of wrath)
+(list t 'is 'not nil) ;; => (t is not nil)
+(first (list moose goose)) ;; => ERROR, Symbol's value as varaible is void: moose
+(first (list 'moose 'goose)) ;; => moose
+(cons 'home ('sweet 'home)) ;; ERROR, quote sweet
+
+
+;; Here is a mistery function:
+
+(defun mystery (x)
+  (list (second x) (first x)))
+
+;; What result or error is produced by evaluating each of the following?
+
+(mystery '(dancing bear)) ;; => (bear dancing)
+(mystery 'dancing 'bear) ;; => ERROR, wrong number of arguments
+(mystery '(zowie)) ;; => (nil zowie)
+(mystery (list 'first 'second)) ;; => (second first)
+
+
+;; What is wrong with each of the following function definitions?
+
+(defun speak (x y) (list 'all 'x 'is 'y)) ;; => x and y vars are not evaluated
+(defun speak (x) (y) (list 'all x 'is y)) ;; => syntax error on function definition
+(defun speak ((x) (y)) (list all 'x is 'y)) ;; => syntax error on function definition
+
+
