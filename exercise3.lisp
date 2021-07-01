@@ -251,7 +251,7 @@
 ;; To go in the opposite direction, the formula is: Fahrenheit temperature = (9/5 x Celsius temperature) + 32.
 
 (defun f-to-c (fah-temperature)
-  (/ (* (- fah-temperature - 32) 5) 9))
+  (/ (* (- fah-temperature 32) 5) 9))
 
 (f-to-c 24.0) ;; => 4.444444444444445
 (f-to-c 32.0) ;; => 0.0
@@ -259,7 +259,8 @@
 
 ;; What is wrong with this function? What does (FOO 5) do?
 
-(defun foo (x) (+ 1 (zerop x)))
+(defun foo (x) (+ 1 (zerop x))) ;; That functions returns error. Zerop returns t and function + only accept numbers as arguments
 
-;; That functions returns error. Zerop returns t and function + only accept numbers as arguments
+
+
 
