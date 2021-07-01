@@ -64,3 +64,19 @@
 (miles-per-gallon 10 100 10) ;; => 9
 (miles-per-gallon 55 60 3.0) ;; => 1.6666666666666667
 
+
+;; The following expressiones evalutate without any errors. Write the results.
+
+(cons 5 (list 6 7)) ;; => (5 6 7)
+
+(cons 5 '(list 6 7)) ;; => (5 list 6 7)
+
+(list 3 'from 9 'gives (- 9 3)) ;; => (3 from 9 gives 6)
+
+(+ (length '(1 foo 2 moo))
+   (third '(1 foo 2 moo))) ;; => 6
+
+(rest '(cons is short for construct)) ;; => (is short for construct)
+
+
+
