@@ -222,3 +222,12 @@
 (defun speak ((x) (y)) (list all 'x is 'y)) ;; => syntax error on function definition
 
 
+;; Write a predicate FIRSTP that returns T if its first argument (a symbol) is equal to the first element of its second argument (a list).
+;; That is, (FIRSTP 'FOO '(FOO BAR BAZ)) should return T.
+;; (FIRSTP 'BOING '(FOO BAR BAZ)) should return NIL.
+
+(defun firstp (my-symbol my-list)
+  (equal my-symbol (first my-list)))
+
+(firstp 'foo '(foo bar baz)) ;; => T
+(firstp 'boing '(foo bar baz)) ;; => NIL
