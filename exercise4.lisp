@@ -91,3 +91,20 @@
 
 (constrain 3 -50 50) ;; => 3
 (constrain 92 -50 50) ;; => 50
+
+;; 4.11 Write a function FIRSTZERO that takes a list of three numbers as input and returns a word
+;; (one of "first", "second", "third", or "none") indicating where the first zero appears in the list.
+;; Example: (FIRSTZERO '(3 0 4)) should return SECOND.
+;; What happens if you try to call FIRSTZERO with three separate numbers instead of a list of three numbers, as in (FIRSTZERO 3 0 4)? => wrong number of arguments
+
+(defun firstzero (list-numbers)
+  (cond ((equal (car list-numbers) 0) 'FIRST)
+        ((equal (cadr list-numbers) 0) 'SECOND)
+        ((equal (caddr list-numbers) 0) 'THIRD)
+        (t 'NONE)))
+
+(firstzero '(3 0 4)) ;; => SECOND
+(firstzero '(0 1 2)) ;; => FIRST
+(firstzero '(1 2 0)) ;; => THIRD
+(firstzero '(1 2 3)) ;; => NONE
+
