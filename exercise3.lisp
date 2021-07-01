@@ -43,7 +43,7 @@
 
 ;; Define a function PYTHAG that takes two inputs, x and y, and returns the square root of x^2+y^2.
 ;; You may recognize this as Pythagora's formula for computing the length of the hypotenuse of a right triangle
-;;given the lengths of the other two sides. (PYTHAG 3 4) should return 5.0
+;; given the lengths of the other two sides. (PYTHAG 3 4) should return 5.0
 
 (defun pythag (x y)
   (sqrt (+ (* x x) (* y y))))
@@ -81,4 +81,52 @@
 (rest '(cons is short for construct)) ;; => (is short for construct)
 
 
+;; The following expressiones all result in errors.
+;; Write down the type of error that occurs, explain how the error arose (for example,
+;; missing quote, quote in wrong place), and correct the expression by changing only the quotes.
 
+(third (the quick brown fox))
+
+;; ERROR => Wrong number of arguments.
+;; CAUSE => missing quote
+;; CORRECT:
+(third '(the quick brown fox)) ;; => brown
+
+;; ---------------------------------
+
+(list 2 and 2 is 4)
+
+;; ERROR => Symbol's value as variable is void: and
+;; CAUSE => missing quote
+;; CORRECT:
+(list '2 'and '2 'is '4) ;; => (2 and 2 is 4)
+
+;; ---------------------------------
+
+(+ 1 '(length (list t t t t)))
+
+;; ERROR => Wrong type argument
+;; CAUSE => quote in wrong place
+;; CORRECT:
+
+(+ 1 (length (list t t t t))) ;; => 5
+
+;; ---------------------------------
+
+(cons 'patrick (seymour marvin))
+
+;; ERROR => Symbol's function definition is void: seymour
+;; CAUSE => missing quote
+;; CORRECT:
+
+(cons 'patrick '(seymour marvin)) ;; => (patrick seymour marvin)
+
+;; ---------------------------------
+
+(cons 'patrick (list seymour marvin))
+
+;; ERROR => Symbol's value as variable is void: seymour
+;; CAUSE => missing quote
+;; CORRECT:
+
+(cons 'patrick (list 'seymour 'marvin)) ;; => (patrick seymour marvin)
