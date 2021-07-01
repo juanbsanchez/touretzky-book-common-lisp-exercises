@@ -41,7 +41,9 @@
 (onemorep 4 3) ;; => T
 
 
-;; Define a function PYTHAG that takes two inputs, x and y, and returns the square root of x^2+y^2. You may recognize this as Pythagora's formula for computing the length of the hypotenuse of a right triangle given the lengths of the other two sides. (PYTHAG 3 4) should return 5.0
+;; Define a function PYTHAG that takes two inputs, x and y, and returns the square root of x^2+y^2.
+;; You may recognize this as Pythagora's formula for computing the length of the hypotenuse of a right triangle
+;;given the lengths of the other two sides. (PYTHAG 3 4) should return 5.0
 
 (defun pythag (x y)
   (sqrt (+ (* x x) (* y y))))
