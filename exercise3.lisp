@@ -151,3 +151,23 @@
 
 (addlength (addlength '(a b c))) ;; => (4 3 A B C)
 
+
+;; Study this function definition:
+
+(defun call-up (caller callee)
+  (list 'hello callee 'this 'is caller 'calling))
+
+;; How many arguments does this function require? 2
+;; What are the names of the arguments? caller and callee
+;; What is the result of:
+(call-up 'FRED 'WANDA) ;; => (hello WANDA this is FRED calling)
+
+
+;; Here is a variation on the CALL-UP function from the previous problem. What is the result of (CRANK-CALL 'WANDA 'FRED) ?
+
+(defun crank-call (caller callee)
+  '(hello callee this is caller calling))
+
+(crank-call 'WANDA 'FRED) ;; => (hello callee this is caller calling)
+
+
