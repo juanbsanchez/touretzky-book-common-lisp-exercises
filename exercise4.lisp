@@ -120,7 +120,7 @@
 (firstzero '(1 2 3)) ;; => NONE
 
 
-;; Write a function CYCLE that cyclically counts from 1 to 99. CYCLE
+;; 4.12 Write a function CYCLE that cyclically counts from 1 to 99. CYCLE
 ;; called with an input of 1 should return 2, with an input of 2 should
 ;; return 3, with an input of 3 should return 4, and so on. With an input of
 ;; 99, CYCLE should return 1. That’s the cyclical part. Do not try to
@@ -130,3 +130,20 @@
   (cond ((equal n 99) 1)
         (t (+ n 1))))
 
+;; 4.13 Write a function HOWCOMPUTE that is the inverse of the COMPUTE
+;; function described previously. HOWCOMPUTE takes three numbers
+;; as input and figures out what operation would produce the third from
+;; the first two. (HOWCOMPUTE 3 4 7) should return SUM-OF.
+;; (HOWCOMPUTE 3 4 12) should return PRODUCT-OF.
+;; HOWCOMPUTE should return the list (BEATS ME) if it can’t find a
+;; relationship between the first two inputs and the third. Suggest some
+;; ways to extend HOWCOMPUTE.
+
+(defun howcompute (x y z)
+  (cond ((equal z (+ x y)) 'sum-of)
+        ((equal z (* x y)) 'product-of)
+        (t '(beats me))))
+
+(howcompute 3 4 7) ;; => sum-of
+(howcompute 3 4 12) ;; => product-of
+(howcompute 1 2 4) ;; => (beats me)
