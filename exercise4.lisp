@@ -318,3 +318,11 @@
         (y t)
         (t nil)))
 
+
+;; 4.35. Write down the DeMorgan equations for the three-input versions of AND and OR
+
+(defun demorgan-and (x y z)
+  (not (or (not x) (not y) (not z))))
+
+(defun demorgan-or (x y z)
+  (not (and (not x) (not y) (not z))))
