@@ -250,3 +250,24 @@
 (compare 2 3) ;; => first-is-smaller
 (compare 3 3) ;; => numbers-are-the-same
 (compare 7 5) ;; => first-is-bigger
+
+
+;; 4.21. Write versions of the GTEST function using IF and COND
+
+(defun gtest (x y)
+  (if (> x y) t
+      (if (zerop x) t
+          (zerop y))))
+
+(gtest 3 2) ;; => T
+(gtest 0 1) ;; => T
+
+(defun gtest (x y)
+  (cond ((> x y) t)
+        (( zerop x) t)
+        (t (zerop y))))
+
+
+(gtest 1 2) ;; => nil
+(gtest 2 1) ;; => T
+
