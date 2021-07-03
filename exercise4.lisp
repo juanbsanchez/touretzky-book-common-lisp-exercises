@@ -215,3 +215,38 @@
 
 
 
+;; 4.19. Show how to write the expression (AND X Y Z W) using COND
+;; instead of AND. Then show how to write it using nested IFs instead of AND.
+
+(cond ((not x) nil)
+      ((not y) nil)
+      ((not z) nil)
+      (t w))
+
+(if x
+    (if y
+        (if z w)))
+
+
+;; 4.20. Write a version of the COMPARE function using IF instead of COND.
+;; Also write a version using AND and OR.
+
+(defun compare (x y)
+  (if (equal x y)
+      'numbers-are-the-same
+      (if (< x y)
+          'first-is-smaller
+          'first-is-bigger)))
+
+(compare 2 3) ;; => first-is-smaller
+(compare 3 3) ;; => numbers-are-the-same
+(compare 7 5) ;; => first-is-bigger
+
+(defun compare (x y)
+  (or (and (equal x y) 'numbers-are-the-same)
+      (and (< x y) 'first-is-smaller)
+      'first-is-bigger))
+
+(compare 2 3) ;; => first-is-smaller
+(compare 3 3) ;; => numbers-are-the-same
+(compare 7 5) ;; => first-is-bigger
