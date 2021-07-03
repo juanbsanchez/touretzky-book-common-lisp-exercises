@@ -271,3 +271,28 @@
 (gtest 1 2) ;; => nil
 (gtest 2 1) ;; => T
 
+
+;; 4.22. Use COND to write a predicate BOILINGP that takes two inputs,
+;; TEMP and SCALE, and returns T if the temperature is above the
+;; boiling point of water on the specified scale. If the scale is
+;; FAHRENHEIT, the boiling point is 212 degrees; if CELSIUS, the
+;; boiling point is 100 degrees. Also write versions using IF and
+;; AND/OR instead of COND.
+
+(defun boilingp (temp scale)
+  (cond ((equal scale 'fahrenheit) (> temp 212))
+        ((equal scale 'celsius) (> temp 100))))
+
+(defun boilingp (temp scale)
+  (if (equal scale 'fahrenheit) (> temp 212)
+      (equal scale 'celsius) (> temp 100)))
+
+(defun bolingp (temp scale)
+  (or (and (equal scale 'fahrenheit) (> temp 212))
+      (and (equal scale 'celsius) (> temp 100))))
+
+(boilingp 101 'celsius) ;; => T
+(boilingp 99 'celsius) ;; => nil
+(boilingp 213 'fahrenheit) ;; => T
+(boilingp 211 'fahrenheit) ;; => nil
+
