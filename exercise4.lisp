@@ -147,3 +147,15 @@
 (howcompute 3 4 7) ;; => sum-of
 (howcompute 3 4 12) ;; => product-of
 (howcompute 1 2 4) ;; => (beats me)
+
+
+;; 4.15 Write a predicate called GEQ that returns T if its first input is greater than or equal to its second input.
+
+(defun geq (x y)
+  (or (> x y) (equal x y)))
+
+(geq 5 6) ;; => T
+(geq 5 5) ;; => T
+(geq 4 7) ;; => NIL
+
+
