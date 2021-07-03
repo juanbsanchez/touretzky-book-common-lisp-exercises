@@ -187,3 +187,31 @@
 (child-or-adult 'boy 'adult) ;; => NIL
 
 
+;; 4.18 Write a function to act as referee in the Rock-Scissors-Paper game. In
+;; this game, each player picks one of Rock, Scissors, or Paper, and then
+;; both players tell what they picked. Rock ‘‘breaks’’ Scissors, so if the
+;; first player picks Rock and the second picks Scissors, the first player
+;; wins. Scissors ‘‘cuts’’ Paper, and Paper ‘‘covers’’ Rock. If both
+;; players pick the same thing, it’s a tie. The function PLAY should take
+;; two inputs, each of which is either ROCK, SCISSORS, or PAPER, and
+;; return one of the symbols FIRST-WINS, SECOND-WINS, or TIE.
+;; Examples: (PLAY ’ROCK ’SCISSORS) should return FIRST-WINS.
+;; (PLAY ’PAPER ’SCISSORS) should return SECOND-WINS.
+
+(defun rock-scissors-paper (x y)
+  (cond ((equal x y) 'tie)
+        ((or (and (equal x 'rock)
+                  (equal y 'scissors))
+             (and (equal x 'scissors)
+                  (equal y 'paper))
+             (and (equal x 'paper)
+                  (equal y 'rock)))
+         'first-wins)
+        (t 'second-wins)))
+
+(rock-scissors-paper 'rock 'scissors) ;; => first-wins
+(rock-scissors-paper 'paper 'scissors) ;; => second-wins
+(rock-scissors-paper 'paper 'paper) ;; => tie
+
+
+
