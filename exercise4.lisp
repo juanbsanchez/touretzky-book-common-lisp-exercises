@@ -285,7 +285,7 @@
 
 (defun boilingp (temp scale)
   (if (equal scale 'fahrenheit) (> temp 212)
-     (if (equal scale 'celsius) (> temp 100))))
+      (if (equal scale 'celsius) (> temp 100))))
 
 (defun bolingp (temp scale)
   (or (and (equal scale 'fahrenheit) (> temp 212))
@@ -297,4 +297,24 @@
 (boilingp 211 'fahrenheit) ;; => nil
 
 
+;; 4.29. Write versions of LOGICAL-AND using IF and COND instead of AND.
+
+(defun logical-and (x y)
+  (if x
+      (if y t)))
+
+(defun logical-and (x y)
+  (cond (x (cond (y t)))))
+
+
+;; 4.30. Write LOGICAL-OR. Make sure it returns only T or NIL for its result.
+
+(defun logical-or (x y)
+  (if x t
+      (if y t)))
+
+(defun logical-or (x y)
+  (cond (x t)
+        (y t)
+        (t nil)))
 
