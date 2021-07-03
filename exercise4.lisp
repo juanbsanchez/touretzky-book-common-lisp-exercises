@@ -171,17 +171,19 @@
 (operations 4) ;; => 2
 
 
-;; 4.17 Write a predicate that returns T if the first input is either BOY or GIRL and the second input is CHILD, or the first input is either MAN or WOMAN and the second input is ADULT.
+;; 4.17 Write a predicate that returns T if the first input is either BOY or GIRL
+;; and the second input is CHILD, or the first input is either MAN or WOMAN and the second input is ADULT.
 
-(defun child-or-adult (person1 person2)
-  (or (and (or (equal person1 'boy)
-               (equal person1 'girl))
-           (equal person2 'child))
-  (and (or (equal person1 'man)
-           (equal person1 'woman))
-       (equal person2 'adult))))
+(defun child-or-adult (person old)
+  (or (and (or (equal person 'boy)
+               (equal person 'girl))
+           (equal old 'child))
+  (and (or (equal person 'man)
+           (equal person 'woman))
+       (equal old 'adult))))
 
 (child-or-adult 'boy 'child) ;; => T
 (child-or-adult 'woman 'adult) ;; => T
 (child-or-adult 'boy 'adult) ;; => NIL
+
 
