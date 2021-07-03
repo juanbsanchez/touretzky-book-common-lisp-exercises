@@ -159,3 +159,16 @@
 (geq 4 7) ;; => NIL
 
 
+;; 4.16 Write a function that squares a number if it is odd and positive, doubles it if it is odd an negative, and otherwise divides the number by 2.
+
+(defun operations (n)
+  (cond ((and (> n 0) (oddp n)) (* n n))
+        ((and (< n 0) (oddp n)) (+ n n))
+        (t (/ n 2))))
+
+(operations 3) ;; => 9
+(operations -7) ;; => -14
+(operations 4) ;; => 2
+
+
+
