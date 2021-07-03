@@ -285,7 +285,7 @@
 
 (defun boilingp (temp scale)
   (if (equal scale 'fahrenheit) (> temp 212)
-      (equal scale 'celsius) (> temp 100)))
+      if( (equal scale 'celsius) (> temp 100))))
 
 (defun bolingp (temp scale)
   (or (and (equal scale 'fahrenheit) (> temp 212))
