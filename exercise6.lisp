@@ -163,8 +163,21 @@
 ;; returns a true value if a sentence contains any article, such as ‘‘the,’’
 ;; ‘‘a,’’ or ‘‘an.’’ Write a version of this predicate using
 ;; INTERSECTION. Write another version using MEMBER and OR.
-;; Could you solve this problem with AND instead of OR?
 
 (defun contains-article-p (sent)
-  (intersection '(the a an)
-                sent))
+  (intersection sent
+                '(the a an)))
+
+(defun contains-article-p (sent)
+  (or (member 'the sent)
+      (member 'a sent)
+      (member 'an sent)))
+
+
+;; 6.18 Write a function ADD-VOWELS that takes a set of letters as input and adds the vowels (A E I O U) to the set.
+;; For example, calling ADDVOWELS on the set (X A E Z) should produce the set (X A E Z I O U), except that the exact order of the elements in the result is unimportant.
+
+(defun add-vowels (set)
+  (union set
+         '(a e i o u)))
+
