@@ -87,8 +87,29 @@
            (say-throw throw)
            '--)
      (cond ((instant-win-p throw) '(you win))
-           ((instant-loss-p throw) '(you loose))
+           ((instant-loss-p throw) '(you lose))
            (t (list 'your 'point 'is
                     (throw-value throw)))))))
+
+
+;; Once a point has been established, you continue throwing the dice
+;; until you either win by making the point again or lose by throwing a
+;; 7. Write the function TRY-FOR-POINT that simulates this part of
+;; the game, as follows:
+
+(defun try-for-point (point)
+  (let* ((throw (throw-dice))
+         (val (throw-value throw)))
+    (append
+     (list 'throw (first throw)
+           'and (second throw)
+           '--
+           (say-throw throw)
+           '--)
+     (cond ((equal val point) '(you win))
+           ((equal val 7) '(you lose))
+           (t '(throw again))))))
+
+
 
 
