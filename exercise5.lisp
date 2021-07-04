@@ -66,8 +66,8 @@
 ;;; return 7. (SAY-THROW ’(6 6)) should return BOXCARS.
 
 (defun say-throw (throw)
-  (cond ((snake-eyes-p) 'snake-eyes)
-        ((box-cars-p) 'boxcars)
+  (cond ((snake-eyes-p throw) 'snake-eyes)
+        ((boxcars-p throw) 'boxcars)
         (t (throw-value throw))))
 
 
@@ -77,5 +77,18 @@
 ;;; behavior. Your solution should make use of the functions you wrote
 ;;; in previous steps
 
+
+(defun craps ()
+  (let ((throw (throw-dice)))
+    (append
+     (list 'throw (first throw)
+           'and (second throw)
+           '--
+           (say-throw throw)
+           '--)
+     (cond ((instant-win-p throw) '(you win))
+           ((instant-loss-p throw) '(you loose))
+           (t (list 'your 'point 'is
+                    (throw-value throw)))))))
 
 
