@@ -181,3 +181,31 @@
   (union set
          '(a e i o u)))
 
+
+;; UNION => returns the union of two sets, in other words, a list of items that appear in either set.
+
+(union '(finger hand arm)
+       '(toe finger foot leg)) ;; => (FINGER HAND ARM TOE FOOT LEG)
+
+;; SET-DIFFERENCE => performs set subtraction. Returns what is left of first set when elements in the second set have been removed.
+
+(set-difference (alpha bravo charlie delta)
+                '(bravo charlie)) ;; => (ALPHA DELTA)
+
+(set-difference '(alpha bravo charlie delta)
+                '(echo alpha foxtrot)) ;; => (BRAVO CHARLIE DELTA)
+
+;; SUBSETP predicate returns T if one set is contained in another, in other words, if every element of the first set is an element of the second set.
+
+(subsetp '(a i) '(a e i o u)) ;; => t
+(subsetp '(a x) '(a e i o u)) ;; => nil
+
+
+;; 6.21 If set x is a subset of set y, then subtracting y from x should leave the
+;; empty set. Write MY-SUBSETP, a version of the SUBSETP predicate
+;; that returns T if its first input is a subset of its second input.
+
+(defun my-subsetp (x y)
+  (null (set-difference x y)))
+
+;; function null returns t if object is the empty list, otherwise returns nil.
