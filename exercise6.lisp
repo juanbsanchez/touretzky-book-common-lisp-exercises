@@ -63,7 +63,8 @@
 (remove 'a '(b a n a n a)) ;; => (b n n)
 (remove 1 '( 3 1 4 1 5 9)) ;; => (3 4 5 9)
 
-;; REMOVE is a nondestructive function. It does not change any variables or cons cells when removing elements from a list. REMOVE builds its result out of fresh cons cells by copying (parts of) the list.
+;; REMOVE is a nondestructive function. It does not change any variables or cons cells when removing elements from a list.
+;; REMOVE builds its result out of fresh cons cells by copying (parts of) the list.
 
 (setf spell '( a b r a c a d a b r a)) ;; => (A B R A C A D A B R A)
 (remove 'a spell) ;; => ( B R C D B R)
@@ -97,9 +98,11 @@
   (first (last list)))
 
 (defun last-element (list)
-  first (reverse list))
+  (first (reverse list)))
 
 (defun last-element (list)
   (and list ; to handle NIL correctly
        (nth (- (length list) 1) list)))
+
+
 
