@@ -105,4 +105,40 @@
        (nth (- (length list) 1) list)))
 
 
+;; 6.7 Use REVERSE to write a NEXT-TO-LAST function that returns the
+;; next-to-last element of a list. Write another version using NTH.
+
+(defun next-to-last (x)
+  (and x
+       (nth (- (length x) 2) x)))
+
+(defun last-element (x)
+  (second (reverse x)))
+
+;; 6.8 Write a function MY-BUTLAST that returns a list with the last element
+;; removed. (MY-BUTLAST ’(ROSES ARE RED)) should return the list
+;; (ROSES ARE). (MY-BUTLAST ’(G A G A)) should return (G A G).
+
+(defun my-butlast (x)
+  (reverse (cdr (reverse x))))
+
+
+;; 6.9 What primitive function does the following reduce to?
+
+(defun mystery (x)
+  (first (last (reverse x)))) ;; => returns first element of a list
+
+
+;; 6.10 A palindrome is a sequence that reads the same forwards and
+;; backwards. The list (A B C D C B A) is a palindrome; (A B C A B C)
+;; is not. Write a function PALINDROMEP that returns T if its input is a palindrome.
+
+(defun palindromep (x)
+  (equal x (reverse x)))
+
+;; 6.11 Write a function MAKE-PALINDROME that makes a palindrome out
+;; of a list, for example, given (YOU AND ME) as input it should return (YOU AND ME ME AND YOU).
+
+(defun make-palindrome (x)
+  (append x (reverse x)))
 
