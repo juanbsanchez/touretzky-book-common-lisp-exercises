@@ -142,3 +142,29 @@
 (defun make-palindrome (x)
   (append x (reverse x)))
 
+
+;; INTERSECTION => takes the intersection of two sets and returns a list of items appearing in both sets.
+;; The exac order in which elements appear in the result is undefined;
+
+(intersection '(fred john mary)
+              '(sue mary fred))
+
+;; (FRED MARY)
+
+;; If a list contains multiple ocurrence of an item, it is not a true set.
+
+;; 6.15  We can use MEMBER to write a predicate that returns a true value if a sentence contains the word ‘‘the.’’
+
+(defun contains-the-p (sent)
+  (member ’the sent))
+
+
+;; Suppose we instead want a predicate CONTAINS-ARTICLE-P that
+;; returns a true value if a sentence contains any article, such as ‘‘the,’’
+;; ‘‘a,’’ or ‘‘an.’’ Write a version of this predicate using
+;; INTERSECTION. Write another version using MEMBER and OR.
+;; Could you solve this problem with AND instead of OR?
+
+(defun contains-article-p (sent)
+  (intersection '(the a an)
+                sent))
