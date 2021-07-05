@@ -436,3 +436,19 @@
 (defun nerdus (state)
   (cdr (assoc state nerd-states)))
 
+;; c. What is the result of (NERDUS ’PLAYING-GUITAR)? => NIL
+
+;; d. When Nerdus Americanis ingests too many stimulants (caffeine overdose), it stops sleeping.
+;; After finishing Debugging, it immediately goes on to state Eating.
+;; Write a function SLEEPLESSNERD that works just like NERDUS except it never sleeps.
+;; Your function should refer to the global variable NERD-STATES, as NERDUS does.
+
+(defun sleepless-nerd (state)
+  (let ((y (nerdus state)))
+    (if (equal y 'sleeping)
+        (nerdus y)
+        y)))
+
+
+
+
