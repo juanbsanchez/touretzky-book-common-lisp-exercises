@@ -533,10 +533,5 @@
 ;; list ((NORTH KITCHEN) (WEST DINING-ROOM)). Test your
 ;; function to make sure it returns the correct result.
 
-
-(defun choices (room)
-  (cdr (assoc room rooms)))
-
-
 (defun choices (room)
   (cdr (assoc room rooms)))
