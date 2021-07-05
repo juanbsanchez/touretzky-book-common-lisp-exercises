@@ -444,11 +444,20 @@
 ;; Your function should refer to the global variable NERD-STATES, as NERDUS does.
 
 (defun sleepless-nerd (state)
-  (let ((y (nerdus state)))
+  (let ((x (nerdus state)))
     (if (equal y 'sleeping)
-        (nerdus y)
-        y)))
+        (nerdus x)
+        x)))
 
 
+;; e. Exposing Nerdus Americanis to extreme amounts of chemical
+;; stimulants produces pathological behavior. Instead of an orderly
+;; advance to its next state, the creature advances two states. For
+;; example, it goes from Eating directly to Programming, and from
+;; there to Sleeping. Write a function NERD-ON-CAFFEINE that
+;; exhibits this unusual pathology. Your function should use the same
+;; table as NERDUS.
 
+(defun nerd-on-caffeine (state)
+  (nerdus (nerdus state)))
 
