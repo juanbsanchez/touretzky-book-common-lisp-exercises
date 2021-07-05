@@ -405,3 +405,34 @@
         (new-jersey (newark princeton trenton))
         (ohion (columnbus))))
 
+
+
+;; 6.35 In this problem we will simulate the behavior of a very simple-minded
+;; creature, Nerdus Americanis (also known as Computerus Hackerus).
+;; This creature has only five states: Sleeping, Eating, Waiting-for-aComputer, Programming, and Debugging.
+;; Its behavior is cyclic: After
+;; it sleeps it always eats, after it eats it always waits for a computer, and
+;; so on, until after debugging it goes back to sleep for a while
+
+;; a. What type of data structure would be useful for representing the
+;; connection between a state and its successor? Write such a data
+;; structure for the five-state cycle given above, and store it in a global
+;; variable called NERD-STATES.
+
+(setf nerd-states
+      '((sleeping . eating)
+        (eating . waiting)
+        (waiting . programming)
+        (programming . debugging)
+        (debugging . sleeping)))
+
+
+;; b. Write a function NERDUS that takes the name of a state as input
+;; and uses the data structure you designed to determine the next state
+;; the creature will be in. (NERDUS ’SLEEPING) should return
+;; EATING, for example. (NERDUS ’DEBUGGING) should return
+;; SLEEPING.
+
+(defun nerdus (state)
+  (cdr (assoc state nerd-states)))
+
