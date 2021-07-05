@@ -492,3 +492,51 @@
   (let ((r (reverse x)))
     (cons (first r)
           (reverse (rest r)))))
+
+
+;; In this keyboard exercise we will write some routines for moving Robbie the
+;; robot around in a house. The map of the house appears in Figure 6-2. Robbie
+;; can move in any of four directions: north, south, east, or west.
+
+;; The layout of the house is described in a table called ROOMS, with one
+;; element for each room:
+
+(setf rooms
+      '((living-room (north front-stairs)
+                     (south dining-room)
+                     (east kitchen))
+        (upstairs-bedroom (west library)
+                          (south front-stairs))
+        (dining-room (north living-room)
+                     (east pantry)
+                     (west downstairs-bedroom))
+        (kitchen (west living-room)
+                 (south pantry))
+        (pantry (north kitchen)
+                (west dining-room))
+        (downstairs-bedroom (north back-stairs)
+                            (east dining-room))
+        (back-stairs (south downstairs-bedroom)
+                     (north library))
+        (front-stairs (north upstairs-bedroom)
+                      (south living-room))
+        (library (east upstairs-bedroom)
+                 (south back-stairs))))
+
+;; 6.41 If the table of rooms is already stored on the computer for you, load the
+;; file containing it. If not, you will have to type the table in as it appears
+;; in Figure 6-3. If you like, try (SDRAW ROOMS) or (SCRAWL ROOMS) to view the table as a cons cell structure.
+
+;; a. Write a function CHOICES that takes the name of a room as input
+;; and returns the table of permissible directions Robbie may take from
+;; that room. For example, (CHOICES ’PANTRY) should return the
+;; list ((NORTH KITCHEN) (WEST DINING-ROOM)). Test your
+;; function to make sure it returns the correct result.
+
+
+(defun choices (room)
+  (cdr (assoc room rooms)))
+
+
+(defun choices (room)
+  (cdr (assoc room rooms)))
