@@ -470,3 +470,25 @@
     (cons (first a)
           (append b (list (first x))))))
 
+
+;; 6.37 ROTATE-LEFT and ROTATE-RIGHT are functions that rotate the
+;; elements of a list. (ROTATE-LEFT ’(A B C D E)) returns (B C D E A),
+;; whereas ROTATE-RIGHT returns (E A B C D). Write these functions.
+
+
+(defun rotate-left (x)
+  (reverse (cons (first x)
+                 (reverse (cdr x)))))
+
+(defun rotate-left (x)
+  (append (rest x) (list (first x))))
+
+(defun rotate-right (x)
+  (append
+   (list (first (last x)))
+   (reverse (rest (reverse x)))))
+
+(defun rotate-right (x)
+  (let ((r (reverse x)))
+    (cons (first r)
+          (reverse (rest r)))))
