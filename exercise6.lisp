@@ -302,3 +302,31 @@
   (rest (member '-vs- x)))
 
 
+;; b. Write a function LEFT-SIDE that returns all the features to the left
+;; of the -VS-. You can’t use the MEMBER trick directly for this one,
+;; but you can use it if you do something to the list first
+
+(defun left-side (x)
+  (right-side (reverse x)))
+
+;; c. Write a function COUNT-COMMON that returns the number of
+;; features the left and right sides of the input have in common
+
+(defun count-common (x)
+  (length (intersection
+           (right-side x)
+           (left-side x))))
+
+
+;; d. Write the main function, COMPARE, that takes a list of features
+;; describing two objects, with a -VS- between them, and reports the
+;; number of features they have in common. COMPARE should return
+;; a list of form (n COMMON FEATURES).
+
+(defun compare (x)
+  (list (count-common x) 'common 'features))
+
+(compare '(small red metal cube -vs-
+           red plastic small cube)) ; => (3 COMMON FEATURES)
+
+
