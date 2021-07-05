@@ -461,3 +461,12 @@
 (defun nerd-on-caffeine (state)
   (nerdus (nerdus state)))
 
+
+;; 6.36 Write a function to swap the first and last elements of any list. (SWAPFIRST-LAST ’(YOU CANT BUY LOVE)) should return (LOVE  CANT BUY YOU).
+
+(defun swapfirst-last (x)
+  (let* ((a (reverse (rest x)))
+          (b (reverse (rest a))))
+    (cons (first a)
+          (append b (list (first x))))))
+
