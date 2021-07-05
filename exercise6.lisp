@@ -365,3 +365,22 @@
 ;; or the description of the second but not the first.
 
 (set-exclusive-or '(small red dull metal cube) '(red small dull plastic cube)) ;; => (plastic metal)
+
+
+;; 6.30 Make a table called BOOKS of five books and their authors. The first
+;; entry might be (WAR-AND-PEACE LEO-TOLSTOY).
+
+(setf books
+      '((war-and-peace leo-tolstoy)
+        (roma-victoriosa javier-negrete)
+        (roma-invicta javier-negrete)
+        (spqr-una-historia-de-la-roma-antigua mary-beard)
+        (roma-eterna marcos-lopez-herrador)))
+
+;; 6.31 Write the function WHO-WROTE that takes the name of a book as
+;; input and returns the book’s author.
+
+(defun who-wrote (x)
+  (second (assoc x books)))
+
+
