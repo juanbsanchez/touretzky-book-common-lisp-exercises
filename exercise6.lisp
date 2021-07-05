@@ -330,3 +330,38 @@
            red plastic small cube)) ; => (3 COMMON FEATURES)
 
 
+
+;; A table, or association list, is a list of lists.
+;; Each list is called an entry, and the car of each entry is its key.
+
+(setf words
+      '((one un)
+        (two deux)
+        (three trois)
+        (four quatr)
+        (five cinq)))
+
+;; The ASSOC function loos up an entry in a table, given its key.
+
+(assoc 'three words) ;; => (three trois)
+(assoc 'six words) ;; => nil
+
+
+;; RASSOC is like ASSOC, except it looks at the cdr of each element of the table instead of the car.
+;; To use RASSOC with symbols as keys, the table must be a list of dotted pairs like this:
+
+(setf sounds
+      '((cow . moo)
+        (pig . oink)
+        (cat . meow)
+        (dog . woof)
+        (bird . tweet)))
+
+(rassoc 'woof sounds) ;; => (dog . woof)
+(assoc 'dog sounds) ;; => (dog. woof)
+
+
+;; SET-EXCLUSIVE-OR is a built-in Common Lisp function that returns properties appear in the description of the first but not the second,
+;; or the description of the second but not the first.
+
+(set-exclusive-or '(small red dull metal cube) '(red small dull plastic cube)) ;; => (plastic metal)
