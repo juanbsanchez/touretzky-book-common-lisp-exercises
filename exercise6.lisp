@@ -209,3 +209,96 @@
   (null (set-difference x y)))
 
 ;; function null returns t if object is the empty list, otherwise returns nil.
+
+
+;; Here is an example of how to solve a modest programming problem using
+;; sets. The problem is to write a function that adds a title to a name, turning
+;; ‘‘John Doe’’ into ‘‘Mr. John Doe’’ or ‘‘Jane Doe’’ into ‘‘Ms. Jane Doe.’’ If
+;; a name already has a title, that title should be kept, but if it doesn’t have one,
+;; we will try to determine the gender of the first name so that the appropriate
+;; title can be assigned.
+;; To solve a problem like this, we must break it down into smaller pieces.
+;; Let’s start with the question of whether a name has a title or not. Here’s how
+;; we’d write a function to answer that question:
+
+(defun titledp (name)
+  (member (first name) '(mr ms miss mrs)))
+
+(titledp '(jane doe)) ;; NIL
+(titledp '(ms jane doe)) ;; (MS MISS MRS)
+
+
+;; The next step is to write functions to figure out whether a word is a male or
+;; female first name. We will use only a few instances of each type of name to
+;; keep the example brief.
+
+(setf male-first-names
+      '(john kim richard fred george))
+
+(setf female-first-names
+      '(jane mary wanda barbara kim))
+
+(defun malep (name)
+  (and (member name male-first-names)
+       (not (member name female-first-names))))
+
+(defun femalep (name)
+  (and (member name female-first-names)
+       (not (member name male-first-names))))
+
+;; Now we can write the GIVE-TITLE function that adds a title to a name.
+;; Of course, we will only add a title if the name doesn’t already have one. If the
+;; first name isn’t recognized as male or female, we’ll play it safe and use "Mr. or Ms."
+
+(defun give-title (name)
+  "Returns a name with an appropriate title on the front."
+  (cond ((titledp name) name)
+        ((malep (first name)) (cons 'mr name))
+        ((femalep (first name)) (cons 'ms name))
+        (t (append '(mr or ms) name))))
+
+(give-title '(miss jane adams)) ;; => (MISS JANE ADAMS)
+(give-title '(john q public)) ;; => (MR JOHN Q PUBLIC)
+(give-title '(barbara smith)) ;; => (MS BARBARA SMITH)
+(give-title '(kim johnson)) ;; => (MR OR MS KIM JOHNSON)
+
+;; Here are a few more things we can do with these lists of names. The
+;; functions below take no inputs, so their argument list is NIL.
+
+(defun gender-ambiguous-names ()
+  (intersection male-names female-names))
+
+(gender-ambiguos-names) ;; => (kim)
+
+(defun uniquely-male-names ()
+  (set-difference male-names female-names))
+
+(uniquely-male-names) ;; => (john richard fred george)
+
+
+;; MINI KEYBOARD EXERCISE
+
+;; 6.26 We are going to write a program that compares the descriptions of two
+;; objects and tells how many features they have in common. The
+;; descriptions will be represented as a list of features, with the symbol
+;; -VS- separating the first object from the second. Thus, when given a
+;; list like
+
+;; (large red shiny cube -vs-
+;;        small shiny red four-sided pyramid)
+
+;; the program will respond with (2 COMMON FEATURES). We will
+;; compose this program from several small functions that you will write
+;; and test one at a time.
+
+;; a. Write a function RIGHT-SIDE that returns all the features to the
+;; right of the -VS- symbol. RIGHT-SIDE of the list shown above
+;; should return (SMALL SHINY RED FOUR-SIDED PYRAMID).
+;; Hint: remember that the MEMBER function returns the entire
+;; sublist starting with the item for which you are searching. Test your
+;; function to make sure it works correctly
+
+(defun right-side (x)
+  (rest (member '-vs- x)))
+
+
