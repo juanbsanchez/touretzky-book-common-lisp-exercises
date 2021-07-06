@@ -578,6 +578,21 @@ the variable LOC."
       (equal loc 'upstairs-bedroom)))
 
 (defun onstairsp (loc)
-  (or (equal loc 'front-bedroom)
-      (equal loc 'back-bedroom)))
+  (or (equal loc 'back-stairs)
+      (equal loc 'front-stairs)))
 
+
+;; f. Where’s Robbie? Write a function of no inputs called WHERE that
+;; tells where Robbie is. If he is in the library, (WHERE) should say
+;; (ROBBIE IS UPSTAIRS IN THE LIBRARY). If he is in the
+;; kitchen, it should say (ROBBIE IS DOWNSTAIRS IN THE KITCHEN).
+;; If he is on the front stairs, it should say (ROBBIE IS ON THE FRONT-STAIRS).
+
+(defun where ()
+  (if (onstairsp loc)
+      (list 'robbie 'is 'on 'the loc)
+      (list 'robbie 'is
+            (if (upstairsp loc)
+                'upstairs
+                'downstairs)
+            'in 'the loc)))
