@@ -618,3 +618,62 @@ the variable LOC."
            '(ouch !robbie hit a wall))
           (t (set-robbie-location new-loc)
              (where)))))
+
+
+;; h. Starting from the pantry, take Robbie to the library via the back
+;; stairs. Then take him to the kitchen, but do not lead him through the
+;; downstairs bedroom on the way
+
+(move 'west) ;; => (dining-room)
+(move 'west) ;; => (downstairs-bedroom)
+(move 'north) ;; => (back-stairs)
+(move 'north) ;; => (library)
+
+(move 'east) ;; => (upstairs-bedroom)
+(move 'south) ;; => (front-stairs)
+(move 'south) ;; => (living-room)
+(move 'east) ;; => (kitchen)
+
+
+;; SUBST => substitutes one item for another everywhere it appears in a list.
+;; It takes three inputs whose order is as in the phrase "substitute x for y in z"
+
+(subst 'fred 'bill '(bill jones sent me an itemized bill for the tires))
+
+;; (FRED JONES SENT ME AN ITEMIZED FRED FOR THE TIRES)
+
+;; If the symbol veing sought doesn't appear at all in the list, SUBST returns the original list unchanged.
+
+;; SUBST looks at the entire structure of the list, not just the top-level elements.
+
+(subst 'the 'a
+       '((a hatter) (a hare) and (a dormouse)))
+
+;; ((THE HATTER) (THE HARE) AND (THE DORMOUSE))
+
+;; SUBLIS is like SUBST, except it can make many substitutions
+;; simultaneously. The first input to SUBLIS is a table whose entries are dotted
+;; pairs. The second input is the list in which the substitutions are to be made
+
+(sublis '((roses . violets) (red . blue))
+        '(roses are red))
+;; (VIOLETS ARE BLUE)
+
+(setf dotted-words
+      '((one . un)
+        (two . deux)
+        (three . trois)
+        (four . quatre)
+        (five . cinq)))
+
+
+(sublis dotted-words '(three one four one five))
+;; (TROIS UN QUATRE UN CINQ)
+
+
+;; 6.42 Write a function called ROYAL-WE that changes every occurrence of
+;; the symbol I in a list to the symbol WE. Calling this function on the list
+;; (IF I LEARN LISP I WILL BE PLEASED) should return the list (IF WE LEARN LISP WE WILL BE PLEASED).
+
+(defun royal-we (x)
+  (subst 'we 'i x))
