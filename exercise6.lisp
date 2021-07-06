@@ -596,3 +596,25 @@ the variable LOC."
                 'upstairs
                 'downstairs)
             'in 'the loc)))
+
+
+;; g. Write a function MOVE that takes one input, a direction, and moves
+;; Robbie in that direction. MOVE should make use of the LOOK
+;; function you wrote previously, and should call SET-ROBBIE-LOCATION to move him.
+;; If Robbie can’t move in the specified direction an appropriate message should be returned.
+;; For example, if Robbie is in the pantry, (MOVE ’SOUTH) should return something like (OUCH! ROBBIE HIT A WALL).
+;; (MOVE ’NORTH) should change Robbie’s location and return (ROBBIE IS DOWNSTAIRS IN THE KITCHEN).
+
+(defun move (direction)
+  (if (look direction loc)
+      (let* ((new-direction (look direction loc)))
+        (set-robbie-location new-direction)
+        (where))
+      '(ouch! robbie hit a wall)))
+
+(defun move (dir)
+  (let ((new-loc (look dir loc)))
+    (cond ((null new-loc)
+           '(ouch !robbie hit a wall))
+          (t (set-robbie-location new-loc)
+             (where)))))
