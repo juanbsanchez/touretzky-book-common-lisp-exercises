@@ -607,8 +607,8 @@ the variable LOC."
 
 (defun move (direction)
   (if (look direction loc)
-      (let* ((new-direction (look direction loc)))
-        (set-robbie-location new-direction)
+      (let* ((new-loc (look direction loc)))
+        (set-robbie-location new-loc)
         (where))
       '(ouch! robbie hit a wall)))
 
