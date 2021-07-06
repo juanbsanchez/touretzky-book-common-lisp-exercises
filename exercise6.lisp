@@ -677,3 +677,63 @@ the variable LOC."
 
 (defun royal-we (x)
   (subst 'we 'i x))
+
+
+;; If we want to tell whether two pointers point to the same object, we must
+;; compare their addresses. The EQ predicate (pronounced ‘‘eek’’) does this.
+;; Lists are EQ to each other only if they have the same address; no element by
+;; element comparison is done.
+
+
+;; • EQ is the fastest equality test: It compares addresses. Experts use
+;; it to compare symbols quickly, and to test whether two cons cells
+;; are physically the same object. It should not be used to compare
+;; numbers.
+
+;; • EQL is like EQ except it can safely compare numbers of the same
+;; type, such as two integers or two floating point numbers. It is the
+;; default equality test in Common Lisp.
+
+;; • EQUAL is the predicate beginners should use. It compares lists
+;; element by element; otherwise it works like EQL.
+
+;; • EQUALP is more liberal than EQUAL: It ignores case distinctions
+;; in strings, among other things.
+
+;; • = is the most efficient way to compare numbers, and the only way
+;; to compare numbers of disparate types, such as 3 and 3.0. It only
+;; accepts numbers.
+
+
+
+;; Many Common Lisp functions that work on lists can take extra, optional
+;; arguments called keyword arguments. For example, the REMOVE function
+;; takes an optional argument called :COUNT that tells it how many instances of
+;; the item to remove.
+
+;; A keyword is a special type of symbol whose name is always preceded by
+;; a colon. The symbols COUNT and :COUNT are not the same; they are
+;; different objects and not EQ to each other.*** Keywords always evaluate to
+;; themselves, so they do not need to be quoted. It is an error to try to change the
+;; value of a keyword. The KEYWORDP predicate returns T if its input is a
+;; keyword.
+
+;; The :TEST keyword can be used with MEMBER to specify a different
+;; function for the equality test. We write #’EQUAL to specially quote the
+;; function for use as an input to MEMBER.
+
+(setf cards
+      '((3 clubs) (5 diamonds) (ace spades)))
+
+(member '(5 diamonds) cards :test #'equal)
+((5 diamonds) (ace spades))
+
+;; All list functions that include equality tests accept a :TEST keyword
+;; argument. REMOVE is another example. We can’t remove (5 DIAMONDS)
+;; from CARDS unless we tell REMOVE to use EQUAL for its equality test.
+
+;; Other functions that accept a :TEST keyword are UNION,
+;; INTERSECTION, SET-DIFFERENCE, ASSOC, RASSOC, SUBST, and
+;; SUBLIS. To find out which keywords a function accepts, use the online
+;; documentation. It is an error to supply a keyword to a function that isn’t
+;; expecting that keyword.
