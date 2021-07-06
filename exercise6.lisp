@@ -568,3 +568,16 @@ the variable LOC."
 (defun how-many-choices ()
   (length (choices loc)))
 
+
+;; e. Write a predicate UPSTAIRSP that returns T if its input is an
+;; upstairs location. (The library and the upstairs bedroom are the only two locations upstairs.)
+;; Write a predicate ONSTAIRSP that returns T if its input is either FRONT-STAIRS or BACK-STAIRS.
+
+(defun upstairsp (loc)
+  (or (equal loc 'library)
+      (equal loc 'upstairs-bedroom)))
+
+(defun onstairsp (loc)
+  (or (equal loc 'front-bedroom)
+      (equal loc 'back-bedroom)))
+
