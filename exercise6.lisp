@@ -535,3 +535,15 @@
 
 (defun choices (room)
   (cdr (assoc room rooms)))
+
+
+;; b. Write a function LOOK that takes two inputs, a direction and a
+;; room, and tells where Robbie would end up if he moved in that
+;; direction from that room. For example, (LOOK ’NORTH ’PANTRY) should return KITCHEN. (LOOK ’WEST ’PANTRY)
+;; should return DINING-ROOM. (LOOK ’SOUTH ’PANTRY)
+;; should return NIL. Hint: The CHOICES function will be a useful
+;; building block
+
+(defun look (direction room)
+  (second (assoc direction (choices room))))
+
