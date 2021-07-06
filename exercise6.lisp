@@ -547,3 +547,24 @@
 (defun look (direction room)
   (second (assoc direction (choices room))))
 
+;; c. We will use the global variable LOC to hold Robbie’s location.
+;; Type in an expression to set his location to be the pantry. The
+;; following function should be used whenever you want to change his
+;; location.
+
+(setf loc 'pantry)
+
+(defun set-robbie-location (place)
+  "Moves Robbie to PLACE by setting
+the variable LOC."
+  (setf loc place))
+
+
+;; d. Write a function HOW-MANY-CHOICES that tells how many
+;; choices Robbie has for where to move to next. Your function should
+;; refer to the global variable LOC to find his current location. If he is
+;; in the pantry, (HOW-MANY-CHOICES) should return 2.
+
+(defun how-many-choices ()
+  (length (choices loc)))
+
