@@ -84,7 +84,8 @@
   (mapcar #'flip-element x))
 
 
-;; FIND-IF => is another applicative operator. If you give FIND-IF a predicate and a list as input, it will find the first elemenet of the list for which the predicate returns true (any non-NIL value).
+;; FIND-IF => is another applicative operator. If you give FIND-IF a predicate and a list as input,
+;; it will find the first elemenet of the list for which the predicate returns true (any non-NIL value).
 
 (find-if #'oddp '(2 4 6 7 8 9)) ; => 7
 
