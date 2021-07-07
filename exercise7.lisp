@@ -52,3 +52,34 @@
 
 (mapcar #'greater-than-five-p '(2 0 3 4 0 -5 -6))
 
+
+;; LAMBDA => Lambda expressions look similar to DEFUNs, except that the function name is missing and the word LAMBDA appears in place of DEFUN.
+
+;; EXERCISES
+;; ---------
+
+;; 7.5. Write a lambda expression to subtract seven from a number.
+
+(lambda (n) (- n 7))
+
+;; 7.6 Write a lambda expression that returns T if its input is T or NIL, but
+;; NIL for any other input
+
+(lambda (x)
+  (or (null x) (equal x t)))
+
+;; 7.7. Write a function that takes a list such as (UP DOWN UP UP) and
+;; "flips" each element, returning (DOWN UP DOWN DOWN).
+;; Your function should include a lambda expression that knows how to flip an individual element,
+;; plus an applicative operator to do this to every element of the list.
+
+(defun flips (x)
+  (mapcar #'(lambda (x)
+              (if (equal x 'up) 'down 'up)) x))
+
+(defun flip-element (e)
+  (if (equal e 'up) 'down 'up))
+
+(defun flip (x)
+  (mapcar #'flip-element x))
+
