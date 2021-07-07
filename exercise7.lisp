@@ -119,4 +119,49 @@
 (defun find-nested (x)
   (find-if #'consp x))
 
-(find-nested '(2 3 (4) (5)) ; => (4)
+(find-nested '(2 3 (4) (5))) ; => (4)
+
+;; 7.10. In this exercise we will write a program to transpose a song from one
+;; key to another. In order to manipulate notes more efficiently, we will
+;; translate them into numbers. Here is the correspondence between notes
+;; and numbers for a one-octave scale:
+
+;; a. Write a table to represent this information. Store it in a global
+;; variable called NOTE-TABLE.
+
+(setf note-table
+      '((c 1)
+        (c-sharp 2)
+        (d 3)
+        (d-sharp 4)
+        (e 5)
+        (f 6)
+        (f-sharp 7)
+        (g 8)
+        (g-sharp 9)
+        (a 10)
+        (a-sharp 11)
+        (b 12)))
+
+;; b. Write a function called NUMBERS that takes a list of notes as input and returns the corresponding list of numbers.
+;; (NUMBERS ’(E D C D E E E)) should return (5 3 1 3 5 5 5).
+;; This list represents the first seven notes of ‘‘Mary Had a Little Lamb.’’
+
+(defun numbers (x)
+  (mapcar #'(lambda (e)
+              (cdr (assoc e note-table)))
+          x))
+
+;; c. Write a function called NOTES that takes a list of numbers as input and returns the corresponding list of notes.
+;; (NOTES ’(5 3 1 3 5 5 5)) should return (E D C D E E E).
+;; Hint: Since NOTE-TABLE is keyed by note, ASSOC can’t look up numbers in it; neither can RASSOC, since the elements are lists, not dotted pairs.
+;; Write your own table-searching function to search NOTE-TABLE by number instead of by note
+
+(defun flip-list (x)
+  (mapcar #'reverse x))
+
+(defun notes (x)
+  (mapcar #'(lambda (e)
+              (cdr (assoc e (flip-list note-table))))
+          x))
+
