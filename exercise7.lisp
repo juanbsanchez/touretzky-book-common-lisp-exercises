@@ -73,9 +73,9 @@
 ;; Your function should include a lambda expression that knows how to flip an individual element,
 ;; plus an applicative operator to do this to every element of the list.
 
-(defun flips (x)
+(defun flips (e)
   (mapcar #'(lambda (x)
-              (if (equal x 'up) 'down 'up)) x))
+              (if (equal x 'up) 'down 'up)) e))
 
 (defun flip-element (e)
   (if (equal e 'up) 'down 'up))
@@ -83,3 +83,39 @@
 (defun flip (x)
   (mapcar #'flip-element x))
 
+
+;; FIND-IF => is another applicative operator. If you give FIND-IF a predicate and a list as input, it will find the first elemenet of the list for which the predicate returns true (any non-NIL value).
+
+(find-if #'oddp '(2 4 6 7 8 9)) ; => 7
+
+(find-if #'(lambda (x) (> x 3)) '(3 4 6 7 8 9)) ; => 4
+
+;; ASSOC searches for a table entry with a specified key. We can write a simple
+;; version of ASSOC that uses FIND-IF to search the table.
+
+(defun my-assoc (key table)
+  (find-if #'(lambda (entry)
+               (equal key (first entry)))
+             table))
+
+;; 7.8. Write a function that takes two inputs, X and K, and returns the first
+;; number in the list X that is roughly equal to K. Let’s say that ‘‘roughly
+;; equal’’ means no less than K−10 and no more than K+10.
+
+(defun roughly-equal (e k)
+  (and (not (< e (- k 10)))
+       (not (> e (+ k 10)))))
+
+(defun find-first-roughly-equal (x k)
+  (find-if #'(lambda (e) (roughly-equal e k)) x))
+
+(find-first-roughly-equal '(25 32 5 3) 12) ; => 5
+(find-first-roughly-equal '(25 32 5 3) -7) ; => 3
+
+;; 7.9. Write a function FIND-NESTED that returns the first element of a list
+;; that is itself a non-NIL list.
+
+(defun find-nested (x)
+  (find-if #'consp x))
+
+(find-nested '(2 3 (4) (5)) ; => (4)
