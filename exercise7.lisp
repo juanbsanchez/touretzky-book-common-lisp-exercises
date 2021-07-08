@@ -211,6 +211,4 @@
 
 (defun transpose (n song)
   (mapcar #'first (notes
-   (normalize (mapcar #'first (numbers
-                               (mapcar #'first (notes
-                                                (raise n (mapcar #'first (numbers song)))))))))))
+   (normalize (raise n (mapcar #'first (numbers song)))))))
