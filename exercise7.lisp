@@ -212,3 +212,29 @@
 (defun transpose (n song)
   (mapcar #'first (notes
    (normalize (raise n (mapcar #'first (numbers song)))))))
+
+
+;; REMOVE-IF AND REMOVE-IF-NOT
+;; REMOVE-IF is another applicative operator that takes a predicate as input.
+;; REMOVE-IF removes all the items from a list that satisfy the predicate, and returns a list of what's left.
+
+(remove-if #'numbersp '(2 for 1 sale)) ; => (FOR SALE)
+
+;; REMOVE-IF-NOT operator is used more frequently than REMOVE-IF.
+;; It works just like REMOVE-IF except it automatically inverts the sense of the predicate.
+
+(remove-if-not #'plusp '(2 0 -4 6 -8 10)) ; => (2 6 10)
+
+
+;; EXERCISES
+;; ---------
+
+;; 7.11. Write a function to pick out those numbers in a list that are greater than
+;; one and less than five
+
+(defun pick-out (x)
+  (remove-if-not #'(lambda (n) (and (> n 1) (< n 5))) x))
+
+(defun pick-out-alt (x)
+  (remove-if-not #'(lambda (x) (< 1 x 5)) x))
+
