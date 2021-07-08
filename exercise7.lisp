@@ -271,3 +271,35 @@
            #'(lambda (n)
                (member n x))
            y)))
+
+;; 7.15. In this keyboard exercise we will manipulate playing cards with
+;; applicative operators. A card will be represented by a list of form (rank
+;; suit), for example, (ACE SPADES) or (2 CLUBS). A hand will be
+;; represented by a list of cards.
+
+;;a. Write the functions RANK and SUIT that return the rank and suit of
+;; a card, respectively. (RANK ’(2 CLUBS)) should return 2, and
+;; (SUIT ’(2 CLUBS)) should return CLUBS.
+
+(defun rank (x)
+  (first x))
+
+(defun suit (x)
+  (second x))
+
+;; b. Set the global variable MY-HAND:
+
+(setf my-hand
+      '((3 hears)
+        (5 clubs)
+        (2 diamonds)
+        (4 diamonds)
+        (ace spades)))
+
+;; Now write a function COUNT-SUIT that takes two inputs, a suit and
+;; a hand of cards, and returns the number of cards belonging to that
+;; suit. (COUNT-SUIT ’DIAMONDS MY-HAND) should return 2.
+
+(defun count-suit (s hand)
+  (length (remove-if-not #'(lambda (card) (equal (suit card) s)) hand)))
+
