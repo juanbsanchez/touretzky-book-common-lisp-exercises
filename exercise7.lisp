@@ -266,4 +266,8 @@
   (remove-if-not #'(lambda (e) (member e y)) x))
 
 (defun my-union (x y)
-  (append x (remove-if #'(lambda (e) (member e x)) y)))
+  (append x
+          (remove-if
+           #'(lambda (n)
+               (member n x))
+           y)))
