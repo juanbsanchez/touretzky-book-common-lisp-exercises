@@ -392,4 +392,22 @@
            card1 card2)) hand))
 
 
+;; REDUCE => is an applicative operator that reduces the elements of a list into a single result.
+;; REDUCE takes a function and a list as input, but unlike the other operators we've seen.
+;; REDUCE must be given a function that accepts two inputs.
+
+(reduce #'+ '(1 2 3)) ; => 6
+
+;; We can also apply reduction to lists of lists. To turn a table into a one-level list, we use APPEND as the reducing function.
+
+(reduce #'append '((one un) (two dexu) (three trois))) ; => (ONE UN TWO DEUX THREE TROIS)
+
+;; 7.17. Write a function that, given a list of lists, returns the total length of all
+;; the lists. This problem can be solved two different ways.
+
+(defun total-length (x) ; conses a lot
+  (length (reduce #'append x)))
+
+(defun total-length-alt (x) ; conses les
+  (reduce #'+(mapcar #'length x)))
 
