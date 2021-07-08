@@ -357,3 +357,39 @@
                (equal (suit card) s))
            hand)))
 
+;; Set the global variable ALL-RANKS to the list
+;; (2 3 4 5 6 7 8 9 10 jack queen king ace)
+;; Then write a predicate HIGHER-RANK-P that takes two cards as
+;; input and returns true if the first card has a higher rank than the
+;; second. Hint: look at the BEFOREP predicate on page 171 of
+;; Chapter 6.
+
+(setf all-ranks
+      '(2 3 4 5 6 7 8 9 10 jack queen king ace))
+
+(defun higher-rank-p (card1 card2)
+  (beforep (rank card2)
+           (rank card1)
+           all-ranks))
+
+;; h. Write a function HIGH-CARD that returns the highest ranked card
+;; in a hand. Hint: One way to solve this is to use FIND-IF to search a
+;; list of ranks (ordered from high to low) to find the highest rank that
+;; appears in the hand. Then use ASSOC on the hand to pick the card
+;; with that rank. Another solution would be to use REDUCE (defined in the next section) to repeatedly pick the highest card of each pair.
+
+(defun high-card (hand) ; FIND-IF version
+  (assoc (find-if
+          #'(lambda (r)
+              (assoc r hand))
+          (reverse all-ranks))
+         hand))
+
+(defun high-card (hand)  ; REDUCE version
+  (reduce
+   #'(lambda (card1 card2)
+       (if (higher-rank-p card1 card2)
+           card1 card2)) hand))
+
+
+
