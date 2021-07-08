@@ -461,3 +461,62 @@
   (not (every #'evenp x)))
 
 
+;; 7.29. If the blocks database is already stored on the computer for you, load
+;; the file containing it. If not, you will have to type it in as it appears in
+;; Figure 7-3. Save the database in the global variable DATABASE.
+
+(setf database
+      '((b1 shape brick)
+        (b1 color green)
+        (b1 size small)
+        (b1 supported-by b2)
+        (b1 supported-by b3)
+        (b2 shape brick)
+        (b2 color red)
+        (b2 size small)
+        (b2 supports b1)
+        (b2 left-of b3)
+        (b3 shape brick)
+        (b3 color red)
+        (b3 size small)
+        (b3 supports b1)
+        (b3 right-of b2)
+        (b4 shape pyramid)
+        (b4 color blue)
+        (b4 size large)
+        (b4 supported-by b5)
+        (b5 shape cube)
+        (b5 color green)
+        (b5 size large)
+        (b5 supports b4)
+        (b6 shape brick)
+        (b6 color purple)
+        (b6 size large)))
+
+;; a. Write a function MATCH-ELEMENT that takes two symbols as
+;; inputs. If the two are equal, or if the second is a question mark,
+;; MATCH-ELEMENT should return T. Otherwise it should return
+;; NIL.
+;; Thus (MATCH-ELEMENT ’RED ’RED) and (MATCH-ELEMENT ’RED ’?) should return T, but (MATCH-ELEMENT ’RED ’BLUE) should return NIL. Make sure your function works correctly before proceeding further.
+
+(defun match-element (x y)
+  (or (equal x y)
+      (equal y '?)))
+
+
+;; b. Write a function MATCH-TRIPLE that takes an assertion and a
+;; pattern as input, and returns T if the assertion matches the pattern.
+;; Both inputs will be three-element lists. (MATCH-TRIPLE ’(B2 COLOR RED) ’(B2 COLOR ?)) should return
+;; T. (MATCH-TRIPLE ’(B2 COLOR RED) ’(B1 COLOR GREEN))
+;; should return NIL. Hint: Use MATCH-ELEMENT as a building
+;; block.
+
+(defun match-triple (assertion pattern)
+  (and (match-element (first assertion) (first pattern))
+       (match-element (second assertion) (second pattern))
+       (match-element (third assertion) (third pattern))))
+
+(defun match-triple (assertion pattern)
+  (every #'match-element
+         assertion
+         pattern))
