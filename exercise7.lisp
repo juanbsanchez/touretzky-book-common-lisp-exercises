@@ -290,7 +290,7 @@
 ;; b. Set the global variable MY-HAND:
 
 (setf my-hand
-      '((3 hears)
+      '((3 hearts)
         (5 clubs)
         (2 diamonds)
         (4 diamonds)
@@ -317,4 +317,19 @@
 
 (defun color-of (x)
   (second (assoc (suit x) colors)))
+
+
+;; d. Write a function FIRST-RED that returns the first card of a hand
+;; that is of a red suit, or NIL if none are.
+
+(defun first-red (hand)
+  (first
+   (remove-if-not
+    #'(lambda (e) (equal (color-of e) 'red))
+    hand)))
+
+(defun first-red (hand)
+  (find-if #'(lambda (card)
+               (equal (color-of card) 'red))
+           hand))
 
