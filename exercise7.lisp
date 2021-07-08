@@ -303,3 +303,18 @@
 (defun count-suit (s hand)
   (length (remove-if-not #'(lambda (card) (equal (suit card) s)) hand)))
 
+;; c. Set the variable COLORS
+
+(setf colors
+      '((clubs black)
+        (diamonds red)
+        (hearts red)
+        (spades black)))
+
+;; Now write a function COLOR-OF that uses the table COLORS to
+;; retrieve the color of a card. (COLOR-OF ’(2 CLUBS)) should
+;; return BLACK. (COLOR-OF ’(6 HEARTS)) should return RED.
+
+(defun color-of (x)
+  (second (assoc (suit x) colors)))
+
