@@ -238,3 +238,11 @@
 (defun pick-out-alt (x)
   (remove-if-not #'(lambda (x) (< 1 x 5)) x))
 
+;; 7.12. Write a function that counts how many times the word ‘‘the’’ appears
+;; in a sentence.
+
+(defun how-many-times (x)
+  (length (remove-if-not #'(lambda (x) (equal x 'the)) x)))
+
+(how-many-times '(the red color the green color the yellow color)) ; => 3
+
