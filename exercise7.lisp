@@ -176,3 +176,28 @@
 (defun raise (n x)
   (mapcar #'(lambda (e) (+ n e)) x))
 
+
+;; f. Sometimes when we raise the value of a note, we may raise it right
+;; into the next octave. For instance, if we raise the triad C-E-G
+;; represented by the list (1 5 8) into the key of F by adding five to
+;; each note, we get (6 10 13), or F-A-C. Here the C note, represented
+;; by the number 13, is an octave above the regular C, represented by
+;; 1. Write a function called NORMALIZE that takes a list of numbers
+;; as input and ‘‘normalizes’’ them to make them be between 1 and 12.
+;; A number greater than 12 should have 12 subtracted from it; a
+;; number less than 1 should have 12 added to it. (NORMALIZE ’(6 10 13)) should return (6 10 1).
+
+(defun normalize (x)
+  (mapcar #'(lambda (n)
+              (if (> n 12) (- n 12)
+                  (if (< n 1) (+ n 12)
+                      n)))
+          x))
+
+(defun normalize (x)
+  (mapcar #'(lambda (n)
+              (cond (( > n 12) (- n 12))
+                    (( < n 12) (+ n 12))
+                    (t n)))
+          x))
+
