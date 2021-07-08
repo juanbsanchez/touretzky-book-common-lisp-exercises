@@ -408,6 +408,56 @@
 (defun total-length (x) ; conses a lot
   (length (reduce #'append x)))
 
-(defun total-length-alt (x) ; conses les
-  (reduce #'+(mapcar #'length x)))
+(defun total-length-alt (x) ; conses less
+  (reduce #'+ (mapcar #'length x)))
+
+
+;; EVERY => takes a predicate and a list as input. It returns T if there is no element that causes the predicate to return false.
+
+(every #'numberp '(1 2 3 4 5)) ; => T
+(every #'numberp '(1 2 A B C 5)) ; => NIL
+
+(every #'(lambda (x) (> x 0)) '(1 2 3 4 5)) ; => T
+
+;; If EVERY is called with NIL as its second argument, it simply returns T,
+;; since the empty list has no elements that could fail to satisfy the predicate.
+
+(every #'oddp nil) ; => T
+(every #'evenp nil) ; => T
+
+;; EVERY can also operate on multiple lists, given a predicate that accepts
+;; multiple inputs.
+
+(every #'> '(10 20 30 40) '(1 5 11 23)) ; => T
+
+;; Since 10 is greater than 1, 20 greater than 5, 30 greater than 11, and 40 greater
+;; than 23, EVERY returns T.
+
+
+;; 7.19. Write a function ALL-ODD that returns T if every element of a list of
+;; numbers is odd.
+
+(defun all-odd (x)
+  (every #'oddp x))
+
+
+;; 7.20. Write a function NONE-ODD that returns T if every element of a list of
+;; numbers is not odd.
+
+(defun none-odd (x)
+  (every #'evenp x))
+
+;; 7.21. Write a function NOT-ALL-ODD that returns T if not every element of
+;; a list of numbers is odd.
+
+(defun not-all-odd (x)
+  (not (every #'oddp x)))
+
+
+;; 7.22. Write a function NOT-NONE-ODD that returns T if it is not the case
+;; that a list of numbers contains no odd elements.
+
+(defun no-none-odd (x)
+  (not (every #'evenp x)))
+
 
