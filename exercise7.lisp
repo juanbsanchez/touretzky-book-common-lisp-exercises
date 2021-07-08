@@ -333,3 +333,13 @@
                (equal (color-of card) 'red))
            hand))
 
+
+
+;; e. Write a function BLACK-CARDS that returns a list of all the black
+;; cards in a hand.
+
+(defun black-cards (hand)
+  (remove-if-not
+   #'(lambda (card) (equal (color-of card) 'black))
+   hand))
+
