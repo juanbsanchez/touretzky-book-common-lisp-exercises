@@ -343,3 +343,17 @@
    #'(lambda (card) (equal (color-of card) 'black))
    hand))
 
+
+;; f. Write a function WHAT-RANKS that takes two inputs, a suit and a
+;; hand, and returns the ranks of all cards belonging to that suit.
+;; (WHAT-RANKS ’DIAMONDS MY-HAND) should return the list
+;; (2 4). (WHAT-RANKS ’SPADES MY-HAND) should return the list (ACE).
+;; Hint: First extract all the cards of the specified suit, then use another operator to get the ranks of those cards.
+
+(defun what-ranks (s hand)
+  (mapcar #'first
+          (remove-if-not
+           #'(lambda (card)
+               (equal (suit card) s))
+           hand)))
+
