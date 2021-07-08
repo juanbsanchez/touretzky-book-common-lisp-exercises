@@ -246,3 +246,24 @@
 
 (how-many-times '(the red color the green color the yellow color)) ; => 3
 
+;; 7.13. Write a function that picks from a list of lists those of exactly length
+;; two.
+
+(defun picks-from-a-list (x)
+  (remove-if #'(lambda (e) (not (equal (length e) 2))) x))
+
+
+;; 7.14. Here is a version of SET-DIFFERENCE written with REMOVE-IF:
+
+(defun my-setdiff (x y)
+  (remove-if #'(lambda (e) (member e y))
+               x))
+
+;; Show how the INTERSECTION and UNION functions can be written
+;; using REMOVE-IF or REMOVE-IF-NOT.
+
+(defun my-intersection (x y)
+  (remove-if-not #'(lambda (e) (member e y)) x))
+
+(defun my-union (x y)
+  (append x (remove-if #'(lambda (e) (member e x)) y)))
