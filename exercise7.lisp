@@ -497,7 +497,8 @@
 ;; inputs. If the two are equal, or if the second is a question mark,
 ;; MATCH-ELEMENT should return T. Otherwise it should return
 ;; NIL.
-;; Thus (MATCH-ELEMENT ’RED ’RED) and (MATCH-ELEMENT ’RED ’?) should return T, but (MATCH-ELEMENT ’RED ’BLUE) should return NIL. Make sure your function works correctly before proceeding further.
+;; Thus (MATCH-ELEMENT ’RED ’RED) and (MATCH-ELEMENT ’RED ’?) should return T, but (MATCH-ELEMENT ’RED ’BLUE) should return NIL.
+;; Make sure your function works correctly before proceeding further.
 
 (defun match-element (x y)
   (or (equal x y)
@@ -531,3 +532,23 @@
   (remove-if-not
    #'(lambda (x) (match-triple x pattern))
   database))
+
+;; d. Use FETCH with patterns you construct yourself to answer the
+;; following questions. What shape is block B4? Which blocks are
+;; bricks? What relation is block B2 to block B3? List the color of
+;; every block. What facts are known about block B4?
+
+(fetch '(b4 shape ?))
+(fetch '(? shape brick))
+(fetch '(b2 ? b3))
+(fetch '(color))
+(fetch '(b4 ? ?))
+
+;; e. Write a function that takes a block name as input and returns a
+;; pattern asking the color of the block. For example, given the input
+;; B3, your function should return the list (B3 COLOR ?).
+
+(defun color-pattern (block)
+  (list block 'color '?))
+
+
