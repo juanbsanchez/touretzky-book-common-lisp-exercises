@@ -563,3 +563,32 @@
   (mapcar #'first
           (fetch (list '? 'supports block))))
 
+;; g. Write a predicate SUPP-CUBE that takes a block as input and
+;; returns true if that block is supported by a cube. (SUPP-CUBE ’B4)
+;; should return a true value; (SUPP-CUBE ’B1) should not because
+;; B1 is supported by bricks but not cubes. Hint: Use the result of the
+;; SUPPORTERS function as a starting point.
+
+(defun supp-cube (block)
+  (member 'cube
+          (mapcar
+           #'(lambda (b) (third (first (fetch
+                                   (list b 'shape '?)))))
+           (supporters block))))
+
+
+;; h. We are going to write a DESCRIPTION function that returns the
+;; description of a block. (DESCRIPTION ’B2) will return (SHAPE BRICK COLOR RED SIZE SMALL SUPPORTS B1 LEFT-OF B3).
+;; We will do this in steps. First, write a function DESC1 that
+;; takes a block as input and returns all assertions dealing with that
+;; block. (DESC1 ’B6) should return ((B6 SHAPE BRICK) (B6 COLOR PURPLE) (B6 SIZE LARGE)).
+
+(defun desc1 (block)
+  (fetch (list block '? '?)))
+
+(defun desc2 (block)
+  (mapcar #'rest (desc1 block)))
+
+(defun description (block)
+  (reduce #'append (desc2 block)))
+
