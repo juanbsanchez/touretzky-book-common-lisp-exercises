@@ -610,3 +610,31 @@
 
 (mapcar #'(lambda (x y) (append x (list y))) words '(un dos tres cuatro cinco))
 
+
+;; KEYWORDS ARGUMENTS TO APPLICATIVE OPERATORS
+
+(find-if #'oddp '(2 3 4 5 6)
+         :from-end t) ; => 5
+; => from-end with non-NIL value, causes the list to be processed from right to left.
+
+(reduce #'cons '(a b c d e) :from-end t) ; => (A B C D . E)
+
+;; With FUNCALL we can write our own applicative operator that takes a funcion as input.
+
+(defun inalienable-rights (fn)
+  (funcall fn
+           '(life liberty and the pursuit of happiness)))
+
+(inalienable-rights #'length) ; => 7
+(inalienable-rights #'first) ; => LIFE
+; It is possible to write a function whose value is another function.
+; Suppose we want to make a function that returns true if its input is greater than a certain number N.
+; We can make this function by constructing  a lambda expression that reffers to N, and returning that lambda expression:
+
+(defun make-greater-than-predicate (n)
+  #'(lambda (x) (> x n))) ; => value returned will be a lexical closure. We can store this value.
+
+(setf pred (make-greater-than-predicate 3))
+
+(funcall pred 2) ; => NIL
+(funcall pred 5) ; => T
