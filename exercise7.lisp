@@ -592,3 +592,21 @@
 (defun description (block)
   (reduce #'append (desc2 block)))
 
+
+;; 7.30. Recall the English–French dictionary we stored in the global variable
+;; WORDS earlier in the chapter. Given this dictionary plus the list or
+;; corresponding Spanish words (UNO DOS TRES QUATRO CINCO), write an expression to return a trilingual dictionary.
+;; The first entry of the dictionary should be (ONE UN UNO).
+
+(setf words
+      '((one uno)
+        (two dos)
+        (three tres)
+        (four cuatro)
+        (five cinco)))
+
+
+(mapcar #'(lambda (x y) (list (first x) y (second x))) words '(un dos tres cuatro cinco))
+
+(mapcar #'(lambda (x y) (append x (list y))) words '(un dos tres cuatro cinco))
+
