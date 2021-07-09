@@ -520,3 +520,14 @@
   (every #'match-element
          assertion
          pattern))
+
+;; c. Write the function FETCH that takes a pattern as input and returns
+;; all assertions in the database that match the pattern. Remember that
+;; DATABASE is a global variable. (FETCH ’(B2 COLOR ?))
+;; should return ((B2 COLOR RED)), and (FETCH ’(? SUPPORTS B1)) should return ((B2 SUPPORTS B1) (B3 SUPPORTS B1)).
+
+
+(defun fetch (pattern)
+  (remove-if-not
+   #'(lambda (x) (match-triple x pattern))
+  database))
