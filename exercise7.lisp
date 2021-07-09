@@ -552,3 +552,14 @@
   (list block 'color '?))
 
 
+;; f. Write a function SUPPORTERS that takes one input, a block, and
+;; returns a list of the blocks that support it. (SUPPORTERS ’B1)
+;; should return the list (B2 B3). Your function should work by
+;; constructing a pattern containing the block’s name, using that
+;; pattern as input to FETCH, and then extracting the block names
+;; from the resulting list of assertions.
+
+(defun supporters (block)
+  (mapcar #'first
+          (fetch (list '? 'supports block))))
+
