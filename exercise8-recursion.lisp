@@ -18,4 +18,9 @@
           (anyoddp (rest x)))))
 
 
+;; A lisp version of the factorial function
+
+(defun fact (n)
+  (cond ((zerop n) 1)
+        (t (* n (fact (- n 1))))))
 
