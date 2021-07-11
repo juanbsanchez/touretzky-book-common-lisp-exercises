@@ -67,10 +67,9 @@
 (defun all-oddp (x)
   (if (null x) t
       (if (oddp (first x))
-          (alloddp (rest x)))))
+          (all-oddp (rest x)))))
 
 (defun all-oddp-alt (x)
   (cond ((null x) t)
         ((evenp (first x)) nil)
-        (t (all-oddp (rest x)))))
-
+        (t (all-oddp-alt (rest x)))))
