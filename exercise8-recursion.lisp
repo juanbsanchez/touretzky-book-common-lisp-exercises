@@ -49,3 +49,14 @@
   (cond ((zerop n) nil)
         (t (cons 'ha (laugh (- n 1))))))
 
+
+;; 8.5. In this exercise we are going to write a function ADD-UP to add up all
+;; the numbers in a list. (ADD-UP ’(2 3 7)) should return 12. You
+;; already know how to solve this problem applicatively with REDUCE;
+;; now you’ll learn to solve it recursively. Before writing ADD-UP we
+;; must answer three questions posed by our three rules of recursion.
+
+(defun add-up (x)
+  (cond ((null x) 0)
+        (t (+ (first x) (add-up (rest x))))))
+
