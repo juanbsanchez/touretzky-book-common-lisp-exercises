@@ -60,3 +60,17 @@
   (cond ((null x) 0)
         (t (+ (first x) (add-up (rest x))))))
 
+
+;; 8.6. Write ALL-ODDP, a recursive function that returns T if all the numbers
+;; in a list are odd.
+
+(defun all-oddp (x)
+  (if (null x) t
+      (if (oddp (first x))
+          (alloddp (rest x)))))
+
+(defun all-oddp-alt (x)
+  (cond ((null x) t)
+        ((evenp (first x)) nil)
+        (t (all-oddp (rest x)))))
+
