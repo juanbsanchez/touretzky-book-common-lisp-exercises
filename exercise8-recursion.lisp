@@ -30,3 +30,22 @@
 (defun count-slices (loaf)
   (cond ((null loaf) 0)
         (t (+ 1 (count-slices (rest loaf))))))
+
+
+;; 3 rules for solving problems recursively:
+
+;; 1. Know when to stop.
+;; 2. Decide how to take one step
+;; 3. Beak the journey down into that step plus a smaller journey
+
+;; EXERCISE:
+
+;; 8.4. We are going to write a function called LAUGH that takes a number as
+;; input and returns a list of that many HAs. (LAUGH 3) should return
+;; the list (HA HA HA). (LAUGH 0) should return a list with no HAs in
+;; it, or, as the dragon might put it, ‘‘the empty laugh.’’
+
+(defun laugh (n)
+  (cond ((zerop n) nil)
+        (t (cons 'ha (laugh (- n 1))))))
+
