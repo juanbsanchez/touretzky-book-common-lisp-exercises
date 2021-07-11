@@ -24,4 +24,10 @@
   (cond ((zerop n) 1)
         (t (* n (fact (- n 1))))))
 
- 
+
+;; If we didn't have LENGTH, we could still count the slices recursively:
+
+(defun count-slices (loaf)
+  (cond ((null loaf) 0)
+        (t (+ 1 (count-slices (rest loaf))))))
+
