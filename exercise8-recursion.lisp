@@ -83,3 +83,12 @@
         ((equal x (first y)) y)
         (t (rec-member x (rest y)))))
 
+
+;; 8.8. Write a recursive version of ASSOC. Call it REC-ASSOC.
+
+(defun rec-assoc (x y)
+  (cond ((null y) nil)
+        ((equal x (car (first y)))
+         (first y))
+        (t (rec-assoc x (rest y)))))
+
