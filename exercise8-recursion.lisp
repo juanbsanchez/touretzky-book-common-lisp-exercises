@@ -176,3 +176,23 @@
 (defun last-element-alt (x)
   (cond ((equal (cdr x) nil) (car x))
         (t (last-element (rest x )))))
+
+;; SINGLE TEST AUGMENING RECURSION
+
+(DEFUN func (X)
+  (COND (end-test end-value)
+        (T (aug-fun aug-val
+                    (func reduced-x)))))
+
+(defun count-slices (x)
+  (cond ((null x) 0)
+        (t (+ 1 (count-slices (rest x))))))
+
+;; 8.21. Write a recursive function ADD-NUMS that adds up the numbers N,
+;; N−1, N−2, and so on, down to 0, and returns the result. For example,
+;; (ADD-NUMS 5) should compute 5+4+3+2+1+0, which is 15.
+
+(defun add-nums (n)
+  (cond ((zerop n) 0)
+        (t (+ n (add-nums (- n 1))))))
+
