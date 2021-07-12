@@ -113,3 +113,45 @@
   (cond ((zerop y) x)
         (t (rec-plus (add1 x) (sub1 y)))))
 
+
+;; 8.14. Write the very shortest infinite recursion function you can.
+
+(defun x () (x))
+
+
+;; RECURSION TEMPLATES:
+;; -------------------
+
+;; 8.11.1 Double-Test Tail Recursion
+
+;; "Double-test" indicates that the recursive function has two end tests;
+;; if either is true, the corresponding end value is returned instead of proceeding with the recursion.
+;; When both en tests are false, we end up at the template.
+
+(defun func (x)
+  (cond (end-test-1 end-value-1)
+        (end-test-2 end-value-2)
+        (t (func reduced-x))))
+
+(defun anyoddp (x)
+  (cond ((null x) nil) ; First test
+        ((oddp (first x)) t) ; Second test
+        (t (anyoddp (rest x))))) ; Tail
+
+;; This template is said to be tail-recursive because the
+;; action part of the last COND clause does not do any work after the recursive
+;; call. Whatever result the recursive call produces, that is what the COND
+;; returns, so that is what each parent call returns. ANYODDP is an example of
+;; a tail-recursive function.
+
+
+;; 8.17. Use double-test tail recursion to write FIND-FIRST-ODD, a function
+;; that returns the first odd number in a list, or NIL if there are none. Start
+;; by copying the recursion template values for ANYODDP; only a small
+;; change is necessary to derive FIND-FIRST-ODD.
+
+(defun find-first-odd (x)
+  (cond ((null x) nil)
+        ((oddp (car x)) (first x))
+        (t (find-first-odd (rest x)))))
+
