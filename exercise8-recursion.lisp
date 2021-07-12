@@ -73,3 +73,13 @@
   (cond ((null x) t)
         ((evenp (first x)) nil)
         (t (all-oddp-alt (rest x)))))
+
+
+;; 8.7. Write a recursive version of MEMBER. Call it REC-MEMBER so you
+;; don’t redefine the built-in MEMBER function.
+
+(defun rec-member (x y)
+  (cond ((null y) nil)
+        ((equal x (first y)) y)
+        (t (rec-member x (rest y)))))
+
