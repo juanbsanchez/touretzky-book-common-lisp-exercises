@@ -92,3 +92,9 @@
          (first y))
         (t (rec-assoc x (rest y)))))
 
+
+;; 8.9. Write a recursive version of NTH. Call it REC-NTH.
+
+(defun rec-nth (n x)
+  (cond ((zerop n) (first x))
+        (t (rec-nth (- n 1) (rest x)))))
