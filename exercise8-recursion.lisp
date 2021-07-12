@@ -98,3 +98,18 @@
 (defun rec-nth (n x)
   (cond ((zerop n) (first x))
         (t (rec-nth (- n 1) (rest x)))))
+
+
+;; 8.10. For x a nonnegative integer and y a positive integer, x+y equals
+;; x+1+(y-1). If y is zero then x+y equals x. Use these equations to build
+;; a recursive version of + called REC-PLUS out of ADD1, SUB1,
+;; COND and ZEROP. You’ll have to write ADD1 and SUB1 too.
+
+(defun add1 (n) (+ n 1))
+
+(defun sub1 (n) (- n 1))
+
+(defun rec-plus (x y)
+  (cond ((zerop y) x)
+        (t (rec-plus (add1 x) (sub1 y)))))
+
