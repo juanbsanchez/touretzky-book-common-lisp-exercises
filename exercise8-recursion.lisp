@@ -122,16 +122,17 @@
 ;; RECURSION TEMPLATES:
 ;; -------------------
 
-;; 8.11.1 Double-Test Tail Recursion
+;; Double-Test Tail Recursion
 
 ;; "Double-test" indicates that the recursive function has two end tests;
 ;; if either is true, the corresponding end value is returned instead of proceeding with the recursion.
 ;; When both en tests are false, we end up at the template.
 
-(defun func (x)
-  (cond (end-test-1 end-value-1)
-        (end-test-2 end-value-2)
-        (t (func reduced-x))))
+;; TEMPLATE:
+;; (defun func (x)
+;;   (cond (end-test-1 end-value-1)
+;;         (end-test-2 end-value-2)
+;;         (t (func reduced-x))))
 
 (defun anyoddp (x)
   (cond ((null x) nil) ; First test
@@ -155,3 +156,23 @@
         ((oddp (car x)) (first x))
         (t (find-first-odd (rest x)))))
 
+
+;; Single-Test Tail Recursion
+
+;; Single-Test is used when we know the function will always find what it's looking for eventually;
+
+;; 8.18. Use single-test tail recursion to write LAST-ELEMENT, a function that
+;; returns the last element of a list. LAST-ELEMENT should recursively
+
+;; TEMPLATE
+;; (DEFUN func (X)
+;;   (COND (end-test end-value)
+;;         (T (func reduced-x))))
+
+(defun last-element(x)
+  (cond ((atom x) x)
+        (t (last-element (rest x)))))
+
+(defun last-element-alt (x)
+  (cond ((equal (cdr x) nil) (car x))
+        (t (last-element (rest x )))))
