@@ -204,3 +204,9 @@
   (cond ((zerop n) nil)
         (t (cons n (count-down (- n 1))))))
 
+
+;; 8.25. How could COUNT-DOWN be used to write an applicative version of
+;; FACT?
+
+(defun applic-fact (n)
+  (reduce #'* (count-down n)))
