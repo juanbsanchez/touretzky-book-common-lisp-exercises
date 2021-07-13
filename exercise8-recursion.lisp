@@ -417,3 +417,20 @@
         ((atom x) 0)
         (t (+ (sum-tree (car x))
               (sum-tree (cdr x))))))
+
+
+;; 8.42. Write MY-SUBST, a recursive version of the SUBST function.
+
+(defun my-subst (new old tree)
+  (cond ((equal tree old) new)
+        ((atom tree) tree)
+        (t (cons (my-subst
+                  new old (car tree))
+                 (my-subst
+                  new old (cdr tree))))))
+
+
+
+
+
+
