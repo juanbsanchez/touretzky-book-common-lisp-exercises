@@ -326,3 +326,28 @@
          (cons (first x)
                (my-intersection (rest x) y)))
         (t (my-intersection (rest x) y))))
+
+
+;; 8.35. Write MY-SET-DIFFERENCE, a recursive version of the SETDIFFERENCE function.
+
+(defun my-set-difference (x y)
+  (cond ((null x) nil)
+        ((not (member (first x) y))
+              (cons (first x)
+                    (my-set-difference (rest x) y)))
+        (t (my-set-difference (rest x) y))))
+
+
+;; 8.36. The function COUNT-ODD counts the number of odd elements in a list
+;; of numbers; for example, (COUNT-ODD ’(4 5 6 7 8)) should return
+;; two. Show how to write COUNT-ODD using conditional
+;; augmentation. Then write another version of COUNT-ODD using the
+;; regular augmenting recursion template. (To do this you will need to                                write a conditional expression for the augmentation value.)
+
+(defun count-odd (x)
+  (cond ((null x) 0)
+        ((oddp (first x))
+         (+ 1 (count-odd (rest x))))
+        (t (count-odd (rest x)))))
+
+
