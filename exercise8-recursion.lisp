@@ -220,3 +220,28 @@
   (cond ((null x) nil)
         (t (cons (* (car x) (car x))
                  (square-list (rest x))))))
+
+
+
+;; 8.28. The expressions (MY-NTH 5 ’(A B C)) and (MY-NTH 1000 ’(A B C))
+;; both run off the end of the list. and hence produce a NIL result. Yet the
+;; second expression takes quite a bit longer to execute than the first.
+;; Modify MY-NTH so that the recursion stops as soon the function runs
+;; off the end of the list.
+
+(defun my-nth (n x)
+  (cond ((null x) nil)
+        ((zerop n) (first x))
+        (t (my-nth (- n 1) (rest x)))))
+
+
+;; 8.29. Write MY-MEMBER, a recursive version of MEMBER. This function
+;; will take two inputs, but you will only want to reduce one of them with
+;; each successive call. The other should remain unchanged.
+
+
+(defun my-member (x y)
+  (cond ((null y) nil)
+        ((equal (first y) x) y)
+        (t (my-member x (rest y)))))
+
