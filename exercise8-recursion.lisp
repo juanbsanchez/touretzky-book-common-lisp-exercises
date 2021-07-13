@@ -271,3 +271,48 @@
         ((null y) 'first-is-longer)
         (t (compare-lengths (rest x)
                             (rest y)))))
+
+
+;; Conditional Augmentation
+;; Template:
+;; (DEFUN func (X)
+;;   (COND (end-test end-value)
+;;         (aug-test (aug-fun aug-val
+;;                            (func reduced-x))
+;;                   (T (func reduced-x))))
+
+
+(defun extract-symbols (x)
+  (cond ((null x) nil)
+        ((symbolp (first x))
+         (cons (first x)
+               (extract-symbols (rest x))))
+        (t (extract-symbols (rest x)))))
+
+
+;; 8.32. Write the function SUM-NUMERIC-ELEMENTS, which adds up all
+;; the numbers in a list and ignores the non-numbers.
+;; (SUM-NUMERICELEMENTS ’(3 BEARS 3 BOWLS AND 1 GIRL)) should return seven.
+
+(defun sum-numeric-elements (x)
+  (cond ((null x) 0)
+        ((numberp (first x))
+         (+ (first x)
+            (sum-numeric-elements (rest x))))
+        (t (sum-numeric-elements (rest x)))))
+
+
+;; 8.33. Write MY-REMOVE, a recursive version of the REMOVE function.
+
+(defun my-remove (x y)
+  (cond ((null y) nil)
+        ((equal x (first y))
+         (my-remove x (rest y)))
+        (t (cons x (my-remove x (rest y))))))
+
+(defun my-remove-alt (x y)
+  (cond ((null y) nil)
+        ((not (equal x (first y)))
+         (cons (first y) (my-remove x (rest y))))
+        (t (my-remove x (rest y)))))
+
