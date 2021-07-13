@@ -316,3 +316,13 @@
          (cons (first y) (my-remove x (rest y))))
         (t (my-remove x (rest y)))))
 
+
+;; 8.34. Write MY-INTERSECTION, a recursive version of the
+;; INTERSECTION function.
+
+(defun my-intersection (x y)
+  (cond ((null x) nil)
+        ((member (first x) y)
+         (cons (first x)
+               (my-intersection (rest x) y)))
+        (t (my-intersection (rest x) y))))
