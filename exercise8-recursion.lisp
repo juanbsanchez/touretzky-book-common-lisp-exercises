@@ -394,3 +394,26 @@
         (t (+ (count-atoms (car x))
               (count-atoms (cdr x))))))
 
+
+;; 8.40. Write COUNT-CONS, a function that returns the number of cons cells
+;; in a tree. (COUNT-CONS ’(FOO)) should return one.
+;; (COUNTCONS ’(FOO BAR)) should return two.
+;; (COUNT-CONS ’((FOO))) should also return two, since the list ((FOO)) requires two cons cells.
+;; (COUNT-CONS ’FRED) should return zero.
+
+(defun count-cons (x)
+  (cond ((atom x) 0)
+        (t (+ 1
+              (count-cons (car x))
+              (count-cons (cdr x))))))
+
+
+;; 8.41. Write a function SUM-TREE that returns the sum of all the numbers
+;; appearing in a tree.
+;; Nonnumbers should be ignored. (SUM-TREE ’((3 BEARS) (3 BOWLS) (1 GIRL))) should return seven.
+
+(defun sum-tree (x)
+  (cond ((numberp x) x)
+        ((atom x) 0)
+        (t (+ (sum-tree (car x))
+              (sum-tree (cdr x))))))
