@@ -196,3 +196,11 @@
   (cond ((zerop n) 0)
         (t (+ n (add-nums (- n 1))))))
 
+
+
+;; 8.24. Write COUNT-DOWN, a function that counts down from n using listconsing recursion. (COUNT-DOWN 5) should produce the list (5 4 3 2  1).
+
+(defun count-down (n)
+  (cond ((zerop n) nil)
+        (t (cons n (count-down (- n 1))))))
+
