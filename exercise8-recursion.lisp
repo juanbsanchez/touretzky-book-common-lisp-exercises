@@ -342,7 +342,8 @@
 ;; of numbers; for example, (COUNT-ODD ’(4 5 6 7 8)) should return
 ;; two. Show how to write COUNT-ODD using conditional
 ;; augmentation. Then write another version of COUNT-ODD using the
-;; regular augmenting recursion template. (To do this you will need to                                write a conditional expression for the augmentation value.)
+;; regular augmenting recursion template.
+;; (To do this you will need to write a conditional expression for the augmentation value.)
 
 (defun count-odd (x)
   (cond ((null x) 0)
