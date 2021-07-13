@@ -383,3 +383,14 @@
   (cond ((equal n 0) 1)
         ((equal n 1) 1)
         (t (combine (fib (- n 1)) (fib (- n 2))))))
+
+
+;; 8.39. Write a function COUNT-ATOMS that returns the number of atoms in
+;; a tree. (COUNT-ATOMS ’(A (B) C)) should return five, since in
+;; addition to A, B, and C there are two NILs in the tree.
+
+(defun count-atoms (x)
+  (cond ((atom x) 1)
+        (t (+ (count-atoms (car x))
+              (count-atoms (cdr x))))))
+
