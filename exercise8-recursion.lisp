@@ -210,3 +210,13 @@
 
 (defun applic-fact (n)
   (reduce #'* (count-down n)))
+
+
+;; 8.27. Write SQUARE-LIST, a recursive function that takes a list of numbers
+;; as input and returns a list of their squares. (SQUARE-LIST ’(3 4 5 6))
+;; should return (9 16 25 36).
+
+(defun square-list (x)
+  (cond ((null x) nil)
+        (t (cons (* (car x) (car x))
+                 (square-list (rest x))))))
