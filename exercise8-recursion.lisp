@@ -432,5 +432,15 @@
 
 
 
+;; 8.43. Write FLATTEN, a function that returns all the elements of an
+;; arbitrarily nested list in a single-level list. (FLATTEN ’((A B (R)) A C
+;; (A D ((A (B)) R) A))) should return (A B R A C A D A B R A).
+
+(defun flatten (x)
+  (cond
+    ((null x) (list))
+    ((atom x) (list x))
+	(t (append (flatten (car x))
+		 (flatten (cdr x))))))
 
 
