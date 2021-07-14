@@ -430,17 +430,24 @@
                   new old (cdr tree))))))
 
 
-
-
 ;; 8.43. Write FLATTEN, a function that returns all the elements of an
 ;; arbitrarily nested list in a single-level list. (FLATTEN ’((A B (R)) A C
 ;; (A D ((A (B)) R) A))) should return (A B R A C A D A B R A).
 
 (defun flatten (x)
-  (cond
-    ((null x) (list))
+  (cond ((null x) (list))
     ((atom x) (list x))
 	(t (append (flatten (car x))
-		 (flatten (cdr x))))))
+		   (flatten (cdr x))))))
 
+
+;; 8.44. Write a function TREE-DEPTH that returns the maximum depth of a
+;; binary tree. (TREE-DEPTH ’(A . B)) should return one. (TREEDEPTH ’((A B C D))) should return five, and (TREE-DEPTH ’((A . B) . (C . D))) should return two
+
+(defun tree-depth (x)
+  (cond ((atom x) 0)
+	(t (+ 1 (max (tree-depth
+		      (car x))
+		     (tree-depth
+		      (cdr x)))))))
 
