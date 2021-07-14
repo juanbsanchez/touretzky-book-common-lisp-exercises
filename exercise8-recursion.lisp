@@ -442,7 +442,8 @@
 
 
 ;; 8.44. Write a function TREE-DEPTH that returns the maximum depth of a
-;; binary tree. (TREE-DEPTH ’(A . B)) should return one. (TREEDEPTH ’((A B C D))) should return five, and (TREE-DEPTH ’((A . B) . (C . D))) should return two
+;; binary tree. (TREE-DEPTH ’(A . B)) should return one.
+;; (TREEDEPTH ’((A B C D))) should return five, and (TREE-DEPTH ’((A . B) . (C . D))) should return two
 
 (defun tree-depth (x)
   (cond ((atom x) 0)
