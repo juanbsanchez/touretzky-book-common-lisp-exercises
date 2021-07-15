@@ -500,5 +500,19 @@
 	(t (append (count-up-alt (- n 1))
 		   (list n)))))
 
+;; 8.47. Write MAKE-LOAF, a function that returns a loaf of size
+;; N. (MAKE-LOAF 4) should return (X X X X). Use IF instead of COND.
 
+(defun make-loaf (x)
+  (if (zerop x) nil
+      (cons 'x
+	    (make-loaf (- x 1)))))
 
+;; 8.48. Write a recursive function BURY that buries an item under n levels of
+;; parentheses. (BURY ’FRED 2) should return ((FRED)), while (BURY
+;; ’FRED 5) should return (((((FRED))))). Which recursion template did
+;; you use?
+
+(defun bury (x n)
+  (cond ((zerop n) x)
+	(t (list (bury x (- n 1))))))
