@@ -490,5 +490,15 @@
 		 (count-up-recursively
 		  (+ cnt 1) n)))))
 
+;; 8.46. Another way to solve the problem of counting upward is to to add an
+;; element to the end of the list with each recursive call instead of adding
+;; elements to the beginning. This approach doesn’t require a helping
+;; function. Write this version of COUNT-UP.
+
+(defun count-up-alt (n)
+  (cond ((zerop n) nil)
+	(t (append (count-up-alt (- n 1))
+		   (list n)))))
+
 
 
