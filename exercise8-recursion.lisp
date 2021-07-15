@@ -467,3 +467,28 @@
 		(paren-depth (rest x))))))
 
 
+;; Using Helping Functions:
+
+;; For example, suppose we want to write a function COUNT-UP that counts from one up to n:
+
+;; (count-up 5) => (1 2 3 4 5)
+
+;; This problem is harder than COUNT-DOWN because the innermost
+;; recursive call must terminate the recursion when the input reaches five (in the
+;; preceding example), not zero. In general, how will the function know when to
+;; stop? The easiest way is to supply the original value of N to the recursive
+;; function so it can decide when to stop. We must also supply an extra
+;; argument: a counter that tells the function how far along it is in the recursion.
+;; The job of the helping function is to provide the initial value for the counter.
+
+(defun count-up (n)
+  (count-up-recursively 1 n))
+
+(defun count-up-recursively (cnt n)
+  (cond ((> cnt n) nil)
+	(t (cons cnt
+		 (count-up-recursively
+		  (+ cnt 1) n)))))
+
+
+
