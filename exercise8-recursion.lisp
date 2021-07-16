@@ -526,3 +526,52 @@
 	(t (cons
 	    (list (car x) (car y))
 	    (pairings (cdr x) (cdr y))))))
+
+
+;; 8.50. Write SUBLISTS, a function that returns the successive sublists of a
+;; list. (SUBLISTS ’(FEE FIE FOE)) should return ((FEE FIE FOE) (FIE
+;; FOE) (FOE)).
+
+(defun sublists (x)
+  (cond ((null x) nil)
+	(t (cons x
+		 (sublists (cdr x))))))
+
+
+;; 8.51. The simplest way to write MY-REVERSE, a recursive version of
+;; REVERSE, is with a helping function plus a recursive function of two
+;; inputs. Write this version of MY-REVERSE
+
+(defun my-reverse (x)
+  (reverse-recursively x nil))
+
+(defun reverse-recursively (x y)
+  (cond ((null x) y)
+	(t (reverse-recursively
+	    (rest x)
+	    (cons (car x) y)))))
+
+;; 8.52. Write MY-UNION, a recursive version of UNION.
+
+(defun my-union (x y)
+  (append x (union-recursively x y)))
+
+(defun union-recursively (x y)
+  (cond ((null y) nil)
+	((member (first y) x)
+	 (union-recursively x (rest y)))
+	(t (cons (first y)
+		 (union-recursively
+		  x
+		  (rest y))))))
+
+;; 8.53. Write LARGEST-EVEN, a recursive function that returns the largest
+;; even number in a list of nonnegative integers. (LARGEST-EVEN ’(5 2
+;; 4 3)) should return four. (LARGEST-EVEN NIL) should return zero.
+;; Use the built-in MAX function, which returns the largest of its inputs.
+
+(defun largest-even (x)
+  (cond ((null x) 0)
+	((evenp (car x))
+	 (max (car x) (largest-even (rest x))))
+	(t (largest-even (rest x)))))
