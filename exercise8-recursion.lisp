@@ -575,3 +575,17 @@
 	((evenp (car x))
 	 (max (car x) (largest-even (rest x))))
 	(t (largest-even (rest x)))))
+
+
+;; 8.54. Write a recursive function HUGE that raises a number to its own
+;; power. (HUGE 2) should return 2^2
+;; , (HUGE 3) should return 3^3 = 27,
+;; (HUGE 4) should return 4^4 = 256, and so on. Do not use REDUCE.
+
+(defun huge (x)
+  (huge-helper x x))
+
+(defun huge-helper (x n)
+  (cond ((equal n 0) 1)
+	(t (* x (huge-helper x (- n 1))))))
+
