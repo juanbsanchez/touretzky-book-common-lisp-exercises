@@ -589,3 +589,118 @@
   (cond ((equal n 0) 1)
 	(t (* x (huge-helper x (- n 1))))))
 
+
+;; 8.56. Write EVERY-OTHER, a recursive function that returns every other
+;; element of a list—the first, third, fifth, and so on. (EVERY-OTHER
+;; ’(A B C D E F G)) should return (A C E G). (EVERY-OTHER ’(I
+;; CAME I SAW I CONQUERED)) should return (I I I).
+
+(defun every-other (x)
+  (cond ((null x) nil)
+	(t (cons (car x)
+		 (every-other (cdr (cdr x)))))))
+
+
+(setf family
+      '((colin nil nil)
+	(deirdre nil nil)
+	(arthur nil nil)
+	(kate nil nil)
+	(frank nil nil)
+	(linda nil nil)
+	(suzanne colin deirdre)
+	(bruce arthur kate)
+	(charles arthur kate)
+	(david arthur kate)
+	(ellen arthur kate)
+	(george frank linda)
+	(hillary frank linda)
+	(andre nil nil)
+	(tamara bruce suzanne)
+	(vincent bruce suzanne)
+	(wanda nil nil)
+	(ivan george ellen)
+	(julie george ellen)
+	(marie george ellen)
+	(nigel andre hillary)
+	(frederick nil tamara)
+	(zelda vincent wanda)
+	(joshua ivan wanda)
+	(quentin nil nil)
+	(robert quentin julie)
+	(olivia nigel marie)
+	(peter nigel marie)
+	(erica nil nil)
+	(yvette robert zelda)
+	(diane peter erica)))
+
+
+;; Each person in the database is represented by an entry of form
+;; (name father mother)
+;; When someone’s father or mother is unknown, a value of NIL is used.
+;; The functions you write in this keyboard exercise need not be recursive,
+;; except where indicated. For functions that return lists of names, the exact
+;; order in which these names appear is unimportant, but there should be no
+;; duplicates.
+
+;; 8.60. If the genealogy database is already stored on the computer for you,
+;; load the file containing it. If not, you will have to type it in as it
+;; appears in Figure 8-12. Store the database in the global variable
+;; FAMILY.
+
+;; a. Write the functions FATHER, MOTHER, PARENTS, and
+;; CHILDREN that return a person’s father, mother, a list of his or her
+;; known parents, and a list of his or her children, respectively.
+;; (FATHER ’SUZANNE) should return COLIN. (PARENTS
+;; ’SUZANNE) should return (COLIN DEIRDRE). (PARENTS
+;; ’FREDERICK) should return (TAMARA), since Frederick’s father
+;; is unknown. (CHILDREN ’ARTHUR) should return the set
+;; (BRUCE CHARLES DAVID ELLEN). If any of these functions is
+;; given NIL as input, it should return NIL. This feature will be useful
+;; later when we write some recursive function
+
+(defun father (x)
+  (second (assoc x family)))
+
+(defun mother (x)
+  (third (assoc x family)))
+
+(defun parents (x)
+  (union (and (father x) (list (father x)))
+	 (and (mother x) (list (mother x)))))
+
+(defun children (parent)
+  (and parent
+       (mapcar #'first
+	       (remove-if-not
+		#'(lambda (entry)
+		    (member parent (rest entry)))
+		family))))
+
+;; b. Write SIBLINGS, a function that returns a list of a person’s siblings,
+;; including genetic half-siblings. (SIBLINGS ’BRUCE) should return
+;; (CHARLES DAVID ELLEN). (SIBLINGS ’ZELDA) should return
+;; (JOSHUA).
+
+(defun siblings (x)
+  (set-difference (union (children (father x))
+			 (children (mother x)))
+		  (list x)))
+
+;; c. Write MAPUNION, an applicative operator that takes a function and
+;; a list as input, applies the function to every element of the list, and
+;; computes the union of all the results. An example is (MAPUNION
+;; #’REST ’((1 A B C) (2 E C J) (3 F A B C D))), which should return
+;; the set (A B C E J F D). Hint: MAPUNION can be defined as a
+;; combination of two applicative operators you already know.
+
+(defun mapunion (fn x)
+  (reduce #'union (mapcar fn x)))
+
+;; d. Write GRANDPARENTS, a function that returns the set of a
+;; person’s grandparents. Use MAPUNION in your solution.
+
+(defun grandparents (x)
+  (mapunion #'parents (parents x)))
+
+
