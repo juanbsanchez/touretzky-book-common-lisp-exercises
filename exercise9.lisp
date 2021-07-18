@@ -116,3 +116,39 @@
 	  "~S bottles of beer on the wall. ~%~%"
 	  (- n 1)))
 
+
+;; 9.5. Part of any tic-tac-toe playing program is a function to display the
+;; board. Write a function PRINT-BOARD that takes a list of nine
+;; elements as input. Each element will be an X, an O, or NIL. PRINTBOARD should display the corresponding board. For example,
+;; (PRINT-BOARD ’(X O O NIL X NIL O NIL X)) should print:
+
+;; X | O | O
+;; -----------
+;;   | X |
+;; -----------
+;; O |   | X
+
+(defun print-board (x)
+  (cond ((member nil x) (format t " "))
+	(t (format t "~&~S | ~S | ~S ~%"
+		   (first x) (second x) (third x))
+	   (format t "~&-----------~%")
+	   (print-board (cdddr x)))))
+
+(defun print-board (b)
+  (let ((b2 (sublis '((x . "x")
+		       (o . "O")
+		       (nil . " "))
+		     b)))
+    (format t "~&")
+    (print-line b2)
+    (format t "-----------~%")
+    (print-line (nthcdr 3 b2))
+    (format t "-----------~%")
+    (print-line (nthcdr 6 b2))))
+
+(defun print-line (line)
+  (format t " ~A | ~A | ~A~%"
+	  (first line)
+	  (second line)
+	  (third line)))
