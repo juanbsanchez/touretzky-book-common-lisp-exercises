@@ -128,13 +128,6 @@
 ;; -----------
 ;; O |   | X
 
-(defun print-board (x)
-  (cond ((member nil x) (format t " "))
-	(t (format t "~&~S | ~S | ~S ~%"
-		   (first x) (second x) (third x))
-	   (format t "~&-----------~%")
-	   (print-board (cdddr x)))))
-
 (defun print-board (b)
   (let ((b2 (sublis '((x . "x")
 		       (o . "O")
