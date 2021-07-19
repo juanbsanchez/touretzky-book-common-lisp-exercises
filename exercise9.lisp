@@ -130,8 +130,8 @@
 
 (defun print-board (b)
   (let ((b2 (sublis '((x . "x")
-		       (o . "O")
-		       (nil . " "))
+		      (o . "O")
+		      (nil . " "))
 		     b)))
     (format t "~&")
     (print-line b2)
@@ -145,3 +145,36 @@
 	  (first line)
 	  (second line)
 	  (third line)))
+
+;;READ is a function that reads one Lisp object (a number, symbol, list, or
+;; whatever) from the keyboard and returns that object as its value. The object
+;; does not have to be quoted because it will not be evaluated. By placing calls
+;; to READ inside a function, we can make the computer read data from the
+;; keyboard under program control. Here are some examples. User type-in in
+;; response to READ is underlined.
+
+(defun my-square ()
+ (format t "Please type in a number: ")
+  (let ((x (read)))
+   (format t "The number ~S squared is ~S.~%"
+	  x (* x x))))
+
+;; > (my-square)
+;; Please type in a number: 7
+;; The number 7 squared is 49.
+;; NIL
+
+;; 9.6. Write a function to compute an hourly worker’s gross pay given an
+;; hourly wage in dollars and the number of hours he or she worked.
+;; Your function should prompt for each input it needs by printing a
+;; message in English. It should display its answer in English as well.
+
+(defun compute-pay ()
+  (format t "~&What is the hourly wage? ")
+  (let ((wage (read)))
+    (format t "~&How many hours workded? ")
+    (let ((hours (read)))
+      (format t
+	      "~&The worker earned ~S dollars."
+	      (* wage hours)))))
+
