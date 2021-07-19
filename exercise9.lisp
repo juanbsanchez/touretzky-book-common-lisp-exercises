@@ -178,3 +178,12 @@
 	      "~&The worker earned ~S dollars."
 	      (* wage hours)))))
 
+
+(defun cookie-monster ()
+  (format t "~&~%Give me a cookie!!! ~&Cookie? ")
+  (let ((x (read)))
+    (cond ((equal x 'cookie)
+	   (format t "Thank you!... Munch munch munch... BURP"))
+	  (t
+	   (format t "No want ~S...~%" x)
+	   (cookie-monster)))))
