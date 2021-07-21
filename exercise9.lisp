@@ -278,3 +278,55 @@
   (space-over y-val)
   (format t "~A~%" plotting-string))
 
+;; c. Write a function PLOT-POINTS that takes a string and a list of y
+;; values as input and plots them. (PLOT-POINTS "< >" ’(4 6 8 10 8 6
+;; 4)) should print
+
+;;  < >
+;;     < >
+;;       < >
+;;         < >
+;;      < >
+;;   < >
+;; < >
+
+
+(defun plot-points (plotting-string y-vals)
+  (mapcar
+   #'(lambda (y)
+   (plot-one-point plotting-string y))
+   y-vals))
+
+;; d. Write a function GENERATE that takes two numbers M and N as
+;; input and returns a list of the integers from M to N. (GENERATE -3
+;; 3) should return (-3 -2 -1 0 1 2 3).
+
+(defun generate (m n)
+  (cond ((equal m n) (list n))
+	(t (cons m (generate (+ m 1) n)))))
+
+
+;; e. Write the MAKE-GRAPH function. MAKE-GRAPH should
+;; prompt for the values of FUNC, START, END, and PLOTTINGSTRING, and then graph the function. Note: You can pass FUNC
+;; as an input to MAPCAR to generate the list of y values for the
+;; function. What will the second input to MAPCAR be?
+
+(defun make-graph ()
+  (let* ((func
+	   (prompt-for "Function to graph? "))
+	 (start
+	   (prompt-for "Starting x value? "))
+	 (end (prompt-for "Ending x value? "))
+	 (plotting-string
+	   (prompt-for "Plotting string? ")))
+    (plot-points plotting-string
+		 (mapcar func (generate start end)))
+    t))
+
+;; f. Define the SQUARE function and graph it over the range -7 to 7.
+;; Use your first name as the plotting symbol.
+
+(defun prompt-for (prompt-string)
+  (format t "~A" prompt-string)
+  (read))
+
