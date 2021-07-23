@@ -330,3 +330,53 @@
   (format t "~A" prompt-string)
   (read))
 
+;; Here is an example of a program that reads an arbitrary file of Lisp objects,
+;; tells how many objects were read, and returns a list of them. It uses the cons
+;; cell ($EOF$) as its special end-of-file value, but any freshly generated cons
+;; cell will do, since only the cell’s address is important, not its contents.
+
+(defun read-my-file ()
+  (with-open-file (stream "/usr/dst/sample-file")
+    (let ((contents
+	   (read-all-objects stream (list ´$efo$))))
+      (format t "~&Read ~S objects from the file."
+	      (length contents))
+      contents)))
+
+(defun read-all-objects (stream eof-indicator)
+  (let ((result (read stream nil eof-indicator)))
+    (if (eq result eof-indicator)
+	nil
+	(cons result (read-all-objects stream)))))
+
+;; Suppose our sample file contains the following lines:
+;; 35 cat (moose
+;; meat) 98.6 "Frozen yogurt"
+;; 3.14159
+
+;; This program would produce the following result:
+
+;; > (read-my-file)
+;; Read 6 objects from the file.
+;; (35 CAT (MOOSE MEAT) 98.6 "Frozen yogurt" 3.14159)
+
+;; EXERCISES
+
+;; 9.11. Write a function DOT-PRIN1 that takes a list as input and prints it in
+;; dot notation. DOT-PRIN1 will print parentheses by (FORMAT T "(")
+;; and (FORMAT T ")"), and dots by (FORMAT T " . "), and will
+;; call itself recursively to print lists within lists. DOT-PRIN1 should
+;; return NIL as its result. Try (DOT-PRIN1 ’(A (B) C)) and see if your
+;; output matches the result in the table above. Then try (DOT-PRIN1
+;; ’((((A))))).
+
+(defun dot-prin1 (x)
+  (cond ((atom x) (format t "~S" x))
+	(t (format t " (")
+	   (dot-prin1 (car x))
+	   (format t " . ")
+	   (dot-prin1 (cdr x))
+	   (format t ")"))))
+
+(dot-prin1 '(a b c)) ; => (A . (B . (C . NIL)))
+
