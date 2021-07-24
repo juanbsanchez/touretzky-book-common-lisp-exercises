@@ -56,3 +56,38 @@
   (format t
 	  "~&That makes ~S glasses so far today."
 	  *total-glasses*))
+
+;; 10.3. Modify the MEET function to keep a count of how many people have been met more than once.
+;; Store this count in a global variable.
+
+(setf *friends* nil)
+
+(defun meet (person)
+  (cond ((equal person (first *friends*))
+	 'we-just-met)
+	((member person *friends*)
+	 'we-know-each-other)
+	(t (push person *friends*)
+	   'pleased-to-meet-you)))
+
+(setf *met-before* 0)
+
+(defun meet (person)
+  (cond ((equal person (first *friends*))
+	 (incf *met-before*)
+	 'we-just-met)
+	((member person *friends*)
+	 (incf *met-before*)
+	 'we-know-each-other)
+	(t (push person *friends*)
+	   'pleased-to-meet-you)))
+
+;; 10.4. Write a function FORGET that removes a person from the *FRIENDS* list.
+;; If the person wasn’t on the list in the first place, the function should complain.
+
+(defun forget (person)
+  (cond ((equal person (first *friends*))
+	 (pop *friends*) 'forgotten)
+	((member person (cdr *friends*))
+	 (list person 'is 'not 'the 'first))
+	(t (list 'dont 'know person))))
