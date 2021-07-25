@@ -54,3 +54,32 @@
 
 
 
+;; 11.4. Write an iterative version of LENGTH, called IT-LENGTH.
+
+(defun it-length (x)
+  (let ((n 0))
+    (dolist (e x n)
+      (incf n))))
+
+;; 11.5. Write an iterative version of NTH, called IT-NTH.
+
+(defun it-nth (n x)
+  (dotimes (i n (first x))
+    (pop x)))
+
+;; 11.6. Write an iterative version of UNION, called IT-UNION. Your function
+;; need not return its result in the same order as the built-in UNION
+;; function.
+
+(defun it-union (x y)
+  (dolist (e x y)
+    (unless (member e y)
+      (push e y))))
+
+;; 11.8. Write an iterative version of REVERSE, called IT-REVERSE.
+
+(defun it-reverse (x)
+  (let ((l (list)))
+    (dolist (e x l)
+      (push e l))))
+
