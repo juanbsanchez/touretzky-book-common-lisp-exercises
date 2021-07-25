@@ -42,3 +42,15 @@
   (dolist (e y)
     (when (equal x (first e)) (return e))))
 
+;; 11.3. Write a recursive version of CHECK-ALL-ODD. It should produce the
+;; same messages and the same result as the preceding iterative version.
+
+(defun check-all-odd (list-of-numbers)
+  (cond ((null list-of-numbers) t)
+	(t (format t "~&Checking ~S..."
+		   (first list-of-numbers))
+	   (unless (evenp (first list-of-numbers))
+	     (check-all-odd (rest list-of-numbers))))))
+
+
+

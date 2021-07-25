@@ -380,3 +380,24 @@
 
 (dot-prin1 '(a b c)) ; => (A . (B . (C . NIL)))
 
+;; 10.5. Rewrite the following ugly function to use good Lisp style.
+(defun ugly (x y)
+  (when (> x y)
+    (setf temp y)
+    (setf y x)
+    (setf x temp))
+  (setf avg (/ (+ x y) 2.0))
+  (setf pct (* 100 (/ avg y)))
+  (list ’average avg ’is
+	 pct ’percent ’of ’max y))
+
+;; (ugly 20 2) ⇒
+;; (average 11.0 is 55.0 percent of max 20)
+
+(defun pretty (x y)
+  (let* ((biggest (max x y))
+	 (smallest (min x y))
+	 (avg (/ (+ x y) 2.0))
+	 (pct (* 100 (/ avg biggest))))
+    (list 'average avg 'is pct 'percent)))
+
