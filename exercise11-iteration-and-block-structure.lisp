@@ -83,3 +83,27 @@
     (dolist (e x l)
       (push e l))))
 
+
+;; Example using DO Macro
+
+(defun launch (n)
+  (do ((cnt n (- cnt 1)))
+      ((zerop cnt) (format t "Blast off!"))
+    (format t "~S..." cnt)))
+
+;; 11.9 Show how to write CHECK-ALL-ODD using DO.
+
+(defun check-all-odd (x)
+  (do ((z x (rest z)))
+      ((null z) t)
+  (format t "~&Checking ~S..." (first z))
+    (if (evenp (first z)) (return nil))))
+
+;; 11.10. Show how to write LAUNCH using DOTIMES.
+
+(defun launch (n)
+  (dotimes (i n 1)
+    (format t "~S..." (- n i)))
+    (format t "Blast off!"))
+
+(launch 10)
