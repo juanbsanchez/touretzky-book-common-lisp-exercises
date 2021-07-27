@@ -295,3 +295,111 @@ s1 ; ⇒ #s(starship name "Enterprise"
 	   (format t "~&~A" current-node)
 	   (return nil)))))
 
+;; It is often convenient to invent specialized notations for printing structures.
+;; For example, we may not want to see all the fields of a starship object
+;; whenever it is printed; we may be satisfied to just see the name. The
+;; convention for printing abbreviated structure descriptions in Common Lisp is
+;; to make up a notation beginning with ‘‘#<’’ and ending with ‘‘>’’ that
+;; includes the type of the structure plus whatever identifying information is
+;; desired. For example, we might choose to print starships this way:
+
+;; #<STARSHIP Enterprise>
+
+;; The first step in customizing the way starship objects print is to write our
+;; own print function. It must take three inputs: the object being printed, the
+;; stream on which to print it, and a number (called depth) that Common Lisp
+;; uses to limit the depth of nesting when printing complex structures. We will
+;; ignore the depth argument in this book, but our function must still accept three
+;; arguments to work correctly. Here it is:
+
+(defun print-starship (x stream depth)
+  (format stream "#<STARSHIP ~A>"
+	  (starship-name x)))
+
+;; We can test this function by calling it with a starship as first input. We’ll
+;; use T for the second input (T refers to the default output stream, which is the console), and a depth of zero.
+
+(print-starship s1 t 0)
+;; #<STARSHIP Enterprise>
+
+;; Now to make Lisp call this function whenever it itres to print a starship, we must include
+;; the print function as an option to the defstruct:
+
+(defstruct (starship
+	    (:print-function print-starship))
+  (captain nil)
+  (name nil)
+  (shields 'down)
+  (condition 'green)
+  (speed 0))
+
+(setf s4 (make-starship :name "Reliant"))
+
+s4 ; => #<STARSHIP Reliant>
+
+(starship-condition s4) ; => GREEN
+
+(format t "~&This is ~S leaving orbit." s4)
+;; This is #<STARSHIP Reliant> leaving orbit.
+;; NIL
+
+;; 12.5. Create a defstruct for CAPTAIN with fields NAME, AGE, and SHIP.
+;; Make a structure describing James T. Kirk, captain of the Enterprise,
+;; age 35. Make the Enterprise point back to Kirk through its CAPTAIN
+;; component. Notice that when you print Kirk, you see his ship as well.
+;; Now define a print function for CAPTAIN that displays only the name,
+;; such as #<CAPTAIN "James T. Kirk">.
+
+(defun print-captain (x stream depth)
+  (format stream "#<CAPTAIN ~A>"
+	  (captain-name x)))
+
+(defstruct (captain
+	    (:print-function print-captain))
+  (name nil)
+  (age nil)
+  (ship nil))
+
+(setf c1 (make-captain :name "James T. Kirk"))
+
+
+;; Structure types can be organized into a hierarchy using the :INCLUDE option.
+
+(defstruct ship
+  (name nil)
+  (captain nil)
+  (crew-size nil))
+
+(defstruct (starship (:include ship))
+  (weapons nil)
+  (shields nil))
+
+(defstruct (supply-ship (:include ship))
+  (cargo nil))
+
+(setf z1 (make-starship
+	  :captain "James T. Kirk"))
+
+;; #S(STARSHIP NAME NIL
+;; 	    CAPTAIN "James T. Kirk"
+;; 	    CREW-SIZE NIL
+;; 	    WEAPONS NIL
+;; 	    SHIELDS NIL)
+
+(setf z2 (make-supply-ship
+	  :captain "Harry Mudd"))
+
+;; #S(SUPPLY-SHIP NAME NIL
+;; 	       CAPTAIN "Harry Mudd"
+;; 	       CREW-SIZE NIL
+;; 	       CARGO NIL)
+
+;; The Enterprise is both a ship and a starship, so both type predicates will
+;; return true
+
+(ship-p z1) ; => T
+(starship-p z1) ; => T
+
+(ship-captain z1) ; => "James" T. Kirk"
+(starship-captain z1) ; => "James T. Kirk"
+
