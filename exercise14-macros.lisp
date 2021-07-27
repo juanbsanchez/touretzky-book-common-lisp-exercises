@@ -154,3 +154,63 @@ b ; => 4
 	 (push `(setf ,(first v)
 		      ',(second v))
 	       res))))
+
+;; Let’s take a look at the effect of COMPILE on the running time of a simple
+;; function. This function returns the smallest integer larger than the square root
+;; of its input. It computes the result in a very tedious way, but that will help us
+;; measure the speedup achieved by compilation.
+
+(defun tedious-sqrt (n)
+  (dotimes (i n)
+    (if (> (* i i) n) (return i))))
+
+(time (tedious-sqrt 5000000))
+
+(compile 'tedious-sqrt)
+
+(time (tedious-sqrt 5000000))
+
+;; Example of destructuring
+
+;; macro takes two pairs as input and returns an expression that produces four pairs:
+
+(defmacro mix-and-match (p q)
+  (let ((x 1 (first p))
+	(y1 (second p))
+	(x2 (first q))
+	(y2 (second q)))
+    `(list '(,x1 ,y1)
+	   '(,x1 ,y2)
+	   '(,x2 ,y1)
+	   '(,x2 ,y2))))
+
+(defmacro mix-and-match ((x1 y1) (x2 y2))
+  `(list '(,x1 ,y1)
+	 '(,x1 ,y2)
+	 '(,x2 ,y1)
+	 '(,x2 ,y2)))
+
+;; Destructuring is only available for macros, not ordinary functions. It is
+;; particularly useful for macros that define new bits of control structure with a
+;; complex syntax. The DOVECTOR macro that follows is modeled after
+;; DOTIMES and DLIST. It steps an index variable through successive elements
+;; of a vector. The macro uses destructuring to pick apart the index variable
+;; name, the vector expression, and the result form.
+
+(defmacro dovector ((var vector-exp
+		     &optional result-form)
+		    &body body)
+  `(do* ((vec-dov ,vector-exp)
+	 (len-dov (length vec-dov))
+	 (i-dov 0 (+ i-dov 1))
+	 (,var nil))
+	((equal i-dov len-dov) ,result-form)
+     (setf ,var (aref vec-dov i-dov))
+    ,@body))
+
+;; > (dovector (x '#(foo bar baz))
+;;     (format t "~&X is ~S" x))
+;; X is FOO
+;; X is BAR
+;; X is BAZ
+;; NIL
