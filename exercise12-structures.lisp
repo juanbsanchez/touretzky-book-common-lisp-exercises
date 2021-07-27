@@ -127,9 +127,171 @@ s1 ; ⇒ #s(starship name "Enterprise"
 
 
 
-;; DEFSTRUCT also automatically defines a constructor function for the type (such as MAKE-STARSHIP) and a type predicate (such as STARSHIP-P).
+;; DEFSTRUCT also automatically defines a constructor function for the type
+;; (such as MAKE-STARSHIP) and a type predicate (such as STARSHIP-P).
 
 (starship-p s3) ; => T
 
 (type-of (make-starship)) ; => STARSHIP
+
+;; DESCRIBE is a function that takes any kind of Lisp object as input and prints
+;; an informative description of it.
+
+(describe s1)
+
+;; NAME = "Enterprise"
+;; SPEED = 1
+;; CONDITION = YELLOW
+;; SHIELDS = UP
+
+;; Inspect works similar:
+
+(inspect s1)
+
+;; 0. NAME: "Enterprise"
+;; 1. SPEED: 1
+;; 2. CONDITION: YELLOW
+;; 3. SHIELDS: UP
+;; >
+
+;; KEYBOARD EXERCISE
+;; -----------------
+
+;; In this keyboard exercise we will implement a discrimination net.
+;; Discrimination nets are networks of yes and no questions used for problemsolving tasks, such as diagnosing automotive engine trouble. Here are two
+;; examples of dialogs with a car diagnosis net:
+;; > (run)
+;; Does the engine turn over? no
+;; Do you hear any sound when you turn the key? no
+;; Is the battery voltage low? no
+;; Are the battery cables dirty or loose? yes
+;; Clean the cables and tighten the connections.
+;; NIL
+;; > (run)
+;; Does the engine turn over? yes
+;; Does the engine run for any length of time? no
+;; Is there gas in the tank? no
+;; Fill the tank and try starting the engine again.
+;; NIL
+;; Figure 12-2 shows a portion of the discrimination net that generated this
+;; dialog. The net consists of a series of nodes. Each node has a name (a
+;; symbol), an associated question (a string), a ‘‘yes’’ action, and a ‘‘no’’ action.
+;; The yes and no actions may either be the names of other nodes to go to, or
+;; they may be strings that give the program’s diagnosis. Since in the latter case
+;; there is no new node to which to go, the program stops after displaying the
+;; string.
+;; Figure 12-3 shows how the net will be created. Note that the tree of
+;; questions is incomplete. If we follow certain paths, we may end up trying to
+;; go to a node that hasn’t been defined yet, as shown in the following. In that
+;; case the program just prints a message and stops.
+
+;; (run)
+;; Does the engine turn over? yes
+;; Will the engine run for any period of time? yes
+;; Node ENGINE-WILL-RUN-BRIEFLY not yet defined.
+;; NIL
+
+;; 12.4. In this exercise you will create a discrimination net for automotive
+;; diagnosis that mimics the behavior of the system shown in the
+;; preceding pages.
+
+;; a. Write a DEFSTRUCT for a structure called NODE, with four
+;; components called NAME, QUESTION, YES-CASE, and NO-CASE.
+
+(defstruct node
+  name
+  question
+  yes-case
+  no-case)
+
+
+;; b. Define a global variable *NODE-LIST* that will hold all the nodes
+;; in the discrimination net. Write a function INIT that initializes the
+;; network by setting *NODE-LIST* to NIL.
+
+(setf *node-list* nil)
+
+(defun init ()
+  (setf *node-list* nil)
+  'initialized)
+
+
+(add-node 'start
+	  "Does the engine turn over?"
+	  'engine-turns-over
+	  'engine-wont-turn-over)
+
+(add-node 'engine-turns-over
+	  "Will the engine run for any period of time?"
+	  'engine-will-run-briefly
+	  'engine-wont-run)
+
+(add-node 'engine-wont-run
+	  "Is there gas in the tank?"
+	  'gas-in-tank
+	  "Fill the tank and try starting the engine again.")
+
+(add-node 'engine-wont-turn-over
+	  "Do you hear any sound when you turn the key?"
+	  'sound-when-turn-key
+	  'no-sound-when-turn-key)
+
+(add-node 'no-sound-when-turn-key
+	  "Is the battery voltage low?"
+	  "Replace the battery"
+	  'battery-voltage-ok)
+
+(add-node 'battery-voltage-ok
+	  "Are the battery cables dirty or loose?"
+	  "Clean the cables and tighten the connections."
+	  'battery-cables-good)
+
+;; c. Write ADD-NODE. It should return the name of the node it added.
+
+(defun add-node (name question yes-case no-case)
+  (push (make-node :name name
+		   :question question
+		   :yes-case yes-case
+		   :no-case no-case)
+	*node-list*))
+
+
+;; d. Write FIND-NODE, which takes a node name as input and returns
+;; the node if it appears in *NODE-LIST*, or NIL if it doesn’t.
+
+(defun find-node (x)
+  (find-if #'(lambda (node)
+	       (equal (node-name node) x))
+	   *node-list*))
+
+;; e. Write PROCESS-NODE. It takes a node name as input. If it can’t
+;; find the node, it prints a message that the node hasn’t been defined
+;; yet, and returns NIL. Otherwise it asks the user the question
+;; associated with that node, and then returns the node’s yes action or
+;; no action depending on how the user responds.
+
+(defun process-node (name)
+  (let ((nd (find-node name)))
+    (if nd
+	(if (y-or-n-p "~&~A "
+		      (node-question nd))
+	    (node-yes-case nd)
+	    (node-no-case nd))
+	(format t
+		"~&Node ~S not yet defined." name))))
+
+;; f. Write the function RUN. It maintains a local variable named
+;; CURRENT-NODE, whose initial value is START. It loops, calling
+;; PROCESS-NODE to process the current node, and storing the value
+;; returned by PROCESS-NODE back into CURRENT-NODE. If the
+;; value returned is a string, the function prints the string and stops. If
+;; the value returned is NIL, it also stops
+
+(defun run ()
+  (do ((current-node 'start
+		     (process-node current-node)))
+      ((null current-node) nil)
+    (cond ((stringp current-node)
+	   (format t "~&~A" current-node)
+	   (return nil)))))
 

@@ -185,3 +185,16 @@
     (if (equal x (first e)) (return (second e)))))
 
 
+;; b. Write a function COMPLEMENT-STRAND that returns the
+;; complementary strand of a sequence of single-stranded DNA.
+;; (COMPLEMENT-STRAND ’(A G G T)) should return (T C C A).
+
+(defun complement-strand (strand)
+  (do ((s strand (rest s))
+       (result nil
+	       (cons (complement-base (first s))
+		     result)))
+      ((null s) (reverse result))))
+
+(complement-strand '(a g g t))
+
